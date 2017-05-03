@@ -1,24 +1,21 @@
-.octopus-wrapper {
-  position:relative;
-}
 #octopus {
   display: block;
   margin: auto;
   position: relative;
-  top: 150px;
+  top: 100px;
   z-index: -1;
 }
 
 #hat {
   display: block;
-  position: relative;
   margin:auto;
-  top: -235px;
+  position: relative;
+  bottom: 256px;
 }
 
 #glasses {
   display: block;
-  position: relative;
   margin:auto;
-  top: -205px;
+  position: relative;
+  bottom: 256px;
 }
