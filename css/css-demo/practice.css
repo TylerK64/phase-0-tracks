@@ -17,6 +17,6 @@ section:hover {
   background-color: blue;
 }
 
-li, ul {
+ul li {
   color: red;
 }
