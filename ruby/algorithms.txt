@@ -1,16 +1,23 @@
 //elevator algorithm
 
-if other_people == true
-	push door_open_button
-else
-	push close_door_button
+method check_status
+	if other_people == true
+		push door_open_button
+	else
+		push close_door_button
+
+method recount
+	until elevator_moves
+		number_of_people = number_of_people - people_left + people_entered
+	if number_of_people != 0
+		return number_of_people
 
 number_of_people = 0
-
 for each_person
 	number_of_people += 1
-
 floor_number = Array.new
+
+check_status
 
 until number_of_people == 0
 	puts "what floor would you like to go to?"
@@ -18,13 +25,8 @@ until number_of_people == 0
 		floor_number = gets.chomp
 	sort floor_number numerically
 	push floor_number
+	check_status
 	recount
-
-method recount
-	until elevator_moves
-		number_of_people = number_of_people - people_left + people_entered
-	if number_of_people != 0
-		return number_of_people
 
 //end of elevator algorithm
 
