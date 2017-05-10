@@ -1,0 +1,10 @@
+if other_people == true
+	push door_open_button
+else
+	push close_door_button
+
+until number_of_people == 0
+	puts "what floor would you like to go to?"
+	floor_number = gets.chomp
+	go to floor_number
+	number_of_people = number_of_people - 1
