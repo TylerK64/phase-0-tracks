@@ -1,10 +1,66 @@
+//elevator algorithm
+
 if other_people == true
 	push door_open_button
 else
 	push close_door_button
 
+number_of_people = 0
+
+for each_person
+	number_of_people += 1
+
+floor_number = Array.new
+
 until number_of_people == 0
 	puts "what floor would you like to go to?"
-	floor_number = gets.chomp
-	go to floor_number
-	number_of_people = number_of_people - 1
+	for number_of_people
+		floor_number = gets.chomp
+	sort floor_number numerically
+	push floor_number
+	recount
+
+method recount
+	until elevator_moves
+		number_of_people = number_of_people - people_left + people_entered
+	if number_of_people != 0
+		return number_of_people
+
+//end of elevator algorithm
+
+
+
+//fill gas tank algorithm
+
+gas_tank = 0
+
+read gas_tank
+	measure gas_tank_capacity
+	measure gas_tank_current_volume
+	tank_percent = gas_tank_current_volume/gas_tank_capacity
+	return tank_percent
+
+fill-up gas_tank
+	open car_gas_tank
+	put nozzle_in_car
+	put credit_card in gas_machine
+	choose gas_grade
+	until read gas_tank = 100
+		wait for gas_tank to be filled
+
+if read(gas_tank) <= 15
+	until gas_station_open == true
+		find nearest_gas_station
+	go-to nearest_gas_station
+
+	if pump_available = false
+		until pump_available = true
+			wait for next_finished_customer
+			fill-up gas_tank
+	else
+		fill-up gas_tank
+	drive home
+	park
+else
+	puts "Your gas tank percentage is currently at: #{tank_percent}%. How would you like to proceed?"
+	answer = gets.chomp
