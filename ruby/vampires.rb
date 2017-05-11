@@ -41,7 +41,24 @@ loop do
 	end
 end
 
-if age_year && (likes_garlic || wants_insurance)
-	puts "Probably not a vampire."
+if name != "Drake Cula" && name != "Tu Fang"
+	if age_year 
+		if likes_garlic || wants_insurance
+			puts "Probably not a vampire."
+		else
+			puts "Results inconclusive."
+		end
+	elsif !age_year
+		if !likes_garlic && !wants_insurance
+			puts "Almost certainly a vampire."
+		elsif !likes_garlic || !wants_insurance
+			puts "Probably a vampire."
+		else
+			puts "Results inconclusive."
+		end
+	else
+		puts "Results inconclusive."
+	end
+elsif name == "Drake Cula" || name == "Tu Fang"
+	puts "Definitely a vampire."
 end
-
