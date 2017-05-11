@@ -2,6 +2,7 @@
 
 likes_garlic = nil
 wants_insurance = nil
+allergies = nil
 
 puts "How many employees will be processed?"
 employees = gets.chomp.to_i
@@ -45,7 +46,18 @@ while employees > 0
 		end
 	end
 
-	if name != "Drake Cula" && name != "Tu Fang"
+	loop do
+		puts "Please name your allergies one at a time (type 'done' when finished)?"
+		allergies = gets.chomp
+		if allergies == "sunshine"
+			puts "Probably a vampire."
+			break
+		elsif allergies == "done"
+			break
+		end
+	end
+
+	if name != "Drake Cula" && name != "Tu Fang" && allergies != "sunshine"
 		if age_year 
 			if likes_garlic || wants_insurance
 				puts "Probably not a vampire."
@@ -63,8 +75,10 @@ while employees > 0
 		else
 			puts "Results inconclusive."
 		end
-	elsif name == "Drake Cula" || name == "Tu Fang"
+	elsif allergies != "sunshine" && (name == "Drake Cula" || name == "Tu Fang")
 		puts "Definitely a vampire."
 	end
 	employees -= 1
 end
+
+puts "Actually, never mind! What do these questions have to do with anything? Let's all be friends."
