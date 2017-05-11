@@ -1,12 +1,12 @@
 //elevator algorithm
 
-method check_status
+def check_status
 	if other_people == true
 		push door_open_button
 	else
 		push close_door_button
 
-function recount
+def recount
 	until elevator_moves
 		number_of_people = number_of_people - people_left + people_entered
 	if number_of_people != 0
@@ -36,13 +36,13 @@ until number_of_people == 0
 
 gas_tank = 0
 
-function measure_tank
+def measure_tank
 	measure gas_tank_capacity
 	measure gas_tank_current_volume
 	tank_percent = gas_tank_current_volume/gas_tank_capacity
 	return tank_percent
 
-method fill_tank
+def fill_tank
 	open gas_tank
 	put nozzle in gas_tank
 	put credit_card in gas_machine
