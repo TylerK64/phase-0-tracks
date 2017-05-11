@@ -6,7 +6,7 @@ method check_status
 	else
 		push close_door_button
 
-method recount
+function recount
 	until elevator_moves
 		number_of_people = number_of_people - people_left + people_entered
 	if number_of_people != 0
@@ -36,21 +36,21 @@ until number_of_people == 0
 
 gas_tank = 0
 
-read gas_tank
+function measure_tank
 	measure gas_tank_capacity
 	measure gas_tank_current_volume
 	tank_percent = gas_tank_current_volume/gas_tank_capacity
 	return tank_percent
 
-fill-up gas_tank
-	open car_gas_tank
-	put nozzle_in_car
+method fill_tank
+	open gas_tank
+	put nozzle in gas_tank
 	put credit_card in gas_machine
 	choose gas_grade
-	until read gas_tank = 100
+	until measure_tank = 100
 		wait for gas_tank to be filled
 
-if read(gas_tank) <= 15
+if measure_tank <= 15
 	until gas_station_open == true
 		find nearest_gas_station
 	go-to nearest_gas_station
@@ -58,11 +58,11 @@ if read(gas_tank) <= 15
 	if pump_available = false
 		until pump_available = true
 			wait for next_finished_customer
-			fill-up gas_tank
+			fill_tank
 	else
-		fill-up gas_tank
+		fill_tank
 	drive home
 	park
 else
-	puts "Your gas tank percentage is currently at: #{tank_percent}%. How would you like to proceed?"
+	puts "Your gas tank is currently at: #{tank_percent}%. How would you like to proceed?"
 	answer = gets.chomp
