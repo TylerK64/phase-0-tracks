@@ -1,31 +1,47 @@
 #!/usr/bin/env ruby
 
-def name
-	puts "What is your name?"
-	name = gets.chomp
+likes_garlic = nil
+wants_insurance = nil
+
+puts "What is your name?"
+name = gets.chomp
+
+puts "How old are you?"
+age = gets.chomp.to_i
+puts "What year were you born?"
+year = gets.chomp.to_i
+
+if 2017-year != age && 2017-year != age+1
+	age_year = false
+else
+	age_year = true
 end
 
-def age_year
-	puts "How old are you?"
-	age = gets.chomp.to_i
-	puts "What year were you born?"
-	year = gets.chomp.to_i
-
-	if 2017-year != age && 2017-year != age+1
-		return false
+loop do
+	puts "Would you like garlic bread from our cafe (yes/no)?"
+	garlic = gets.chomp
+	if garlic == "yes"
+		likes_garlic = true
+		break
+	elsif garlic == "no"
+		likes_garlic = false
+		break
 	end
 end
 
-def garlic
-	puts "Would you like garlic bread from our cafe?"
-	garlic = gets.chomp
+loop do 
+	puts "Would you like to enroll in the company's health insurance (yes/no)?"
+		insurance = gets.chomp
+	if insurance == "yes"
+		wants_insurance = true
+		break
+	elsif insurance == "no"
+		wants_insurance = false
+		break
+	end
 end
 
-def insurance
-	puts "Would you like to enroll in the company's health insurance?"
-	insurance = gets.chomp
+if age_year && (likes_garlic || wants_insurance)
+	puts "Probably not a vampire."
 end
 
-if age_year == true && insurance == true
-	puts "looking good!"
-end
