@@ -1,21 +1,20 @@
-puts "What's the hamsters name?"
-name = gets.chomp
-
 volume = nil
 candidate = nil
 age = nil
 
+puts "What's the hamsters name?"
+name = gets.chomp
 
 loop do
 puts "What's the volume level of the hamster (1 to 10)?"
 volume = gets.chomp.to_i
 	if volume <= 10 && volume >= 1
-		volume = volume.to_s
+	    volume = volume.to_s
 		break
 	end
 end
 
-puts "What's the fur color?"
+puts "What's the hamster's fur color?"
 fur_color = gets.chomp
 
 loop do
@@ -34,7 +33,7 @@ candidate = gets.chomp.downcase
 end
 
 loop do
-puts "What's the hamsters estimated age?"
+puts "What's the hamster's estimated age?"
 age = gets.chomp
 	if age.to_i > 0
 		break
@@ -49,10 +48,9 @@ age = gets.chomp
 	end
 end
 
-
-puts "Hamster's name is: #{name}."
-puts "Hamster's volume level is: #{volume}."
-puts "Hamster's fur color is #{fur_color}"
+puts "Hamster's name is: #{name}"
+puts "Hamster's volume level is: #{volume}"
+puts "Hamster's fur color is: #{fur_color}"
 puts "Is the hamster recommended for adoption: #{candidate}"
 
 if age != nil
