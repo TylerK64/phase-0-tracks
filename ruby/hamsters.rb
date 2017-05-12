@@ -6,12 +6,13 @@ puts "What's the hamsters name?"
 name = gets.chomp
 
 loop do
-puts "What's the volume level of the hamster (1 to 10)?"
-volume = gets.chomp.to_i
+puts "What's the volume level of the hamster?"
+volume = gets.chomp.to_f
 	if volume <= 10 && volume >= 1
-	    volume = volume.to_s
+		volume = volume.to_i
 		break
 	end
+	puts "Try a value from 1 to 10."
 end
 
 puts "What's the hamster's fur color?"
@@ -25,27 +26,24 @@ candidate = gets.chomp.downcase
 			candidate = "yes"
 		elsif candidate == "n"
 			candidate = "no"
-		end	
+		end
 	break
-	else
-		puts "Try again"
 	end
+	puts "Try again (yes or no)."
 end
 
 loop do
 puts "What's the hamster's estimated age?"
 age = gets.chomp
-	if age.to_i > 0
+	if age.to_f > 0
 		break
 	elsif age == "0"
-		age = age.to_i
 		break
 	elsif age == ""
 		age = nil
 		break
-	else
-		puts "Invalid response. Try again."
 	end
+	puts "Invalid response. Try again."
 end
 
 puts "Hamster's name is: #{name}"
