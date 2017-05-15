@@ -6,7 +6,7 @@
 
 "iNvEsTiGaTiOn".swapcase
 "iNvEsTiGaTiOn".replace(“InVeStIgAtIoN”)
-#technically #replace should work for all strings in this assignment so it will not be included for the rest of the exercises.
+#technically .replace should work for all strings in this assignment so it will not be included for the rest of the exercises.
 # => “InVeStIgAtIoN”
 
 "zom".gsub(/o/, 'oo')
@@ -31,14 +31,17 @@
 "the usual" + " suspects".to_s
 "the usual" << " suspects"
 "the usual".concat(" suspects")
+"the usual".insert(9, " suspects")
 #=> "the usual suspects"
 
 "the usual" + " suspects"
 " suspects".prepend("the usual")
+" suspects".insert(0, "the usual")
 # => "the usual suspects"
 
 "The case of the disappearing last letter".chomp("r")
 "The case of the disappearing last letter".chop
+#"The case of the disappearing last letter".tr("er", 'e')
 #"The case of the disappearing last letter".delete("e","er", "^e")
 # => "The case of the disappearing last lette"
 
@@ -50,6 +53,7 @@
 
 "z".bytes
 "z".getbyte(0)
+"z".ord
 #"z".each_codepoint {|c| print c, ' ' }
 # => 122 
 # (What is the significance of the number 122 in relation to the character z?)
