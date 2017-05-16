@@ -32,16 +32,18 @@ loop do
 	counter += 1
 end
 
-until form[:sand] == true || form[:sand] == false
+loop do
 	puts "Do you like sand (true/false)?"
 	form[:sand] = gets.chomp.downcase
 	if form[:sand] == "true" || form[:sand] == "t"
 		form[:sand] = true
+		break
 	elsif form[:sand] == "false" || form[:sand] == "f"
 		form[:sand] = false
+		break
 	end
 end
-
+ 
 puts "If you would like to edit any of your information, please type out the name of the catergory:"
 update = gets.chomp.to_sym
 case update
@@ -57,8 +59,32 @@ when :children
 when :decor_theme
 	puts "What's your preferred decor theme?"
 	form[:decor_theme] = gets.chomp
+when :colors
+	loop do
+		counter = 0
+		puts "Please enter a few of your favorite colors (type 'exit' when done):"
+		form[:colors] << gets.chomp.downcase
+		if form[:colors].last.to_s == "exit"
+			form[:colors].delete("exit")
+			break
+		end
+		counter += 1
+	end
+when :sand
+	loop do
+		puts "Do you like sand (true/false)?"
+		form[:sand] = gets.chomp.downcase
+		if form[:sand] == "true" || form[:sand] == "t"
+			form[:sand] = true
+			break
+		elsif form[:sand] == "false" || form[:sand] == "f"
+			form[:sand] = false
+			break
+		end
+	end
+else
+	puts "Sorry, didn't quite get that."
 end
-
 
 puts "Here is the information you inputted:"
 puts "Name: #{form[:name]}" 
