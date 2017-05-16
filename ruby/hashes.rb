@@ -42,13 +42,29 @@ until form[:sand] == true || form[:sand] == false
 	end
 end
 
-#puts "Would you like to update any of your information before proceeding?"
-#update = gets.chomp
+puts "If you would like to edit any of your information, please type out the name of the catergory:"
+update = gets.chomp.to_sym
+case update
+when :name
+	puts "What is your new name?"
+	form[:name] = gets.chomp
+when :age
+	puts "What is your new age?"
+	form[:age] = gets.chomp.to_i
+when :children
+	puts "How many children do you have?"
+	form[:children] = gets.chomp.to_i
+when :decor_theme
+	puts "What's your preferred decor theme?"
+	form[:decor_theme] = gets.chomp
+end
+
 
 puts "Here is the information you inputted:"
 puts "Name: #{form[:name]}" 
 puts "Age: #{form[:age]}"
 puts "Children: #{form[:children]}" 
 puts "Decor theme: #{form[:decor_theme]}"
+puts "Favorite colors: #{form[:colors]}"
 puts "Really likes sand: #{form[:sand]}"
 puts "Here is the compiled list of information just in case: #{form}"
