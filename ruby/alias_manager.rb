@@ -4,8 +4,6 @@
 #find all the vowels in each array
 #use .next to make all vowels increase by 1 character
 
-#couldn't figure out the case when user inputs a name longer than two words (ie: "First Middle Last"), plus not sure if necessary.
-
 def is_vowel? (char)
 	if char == 'A' || char == 'E' || char == 'I' || char == 'O' || char == 'U'
 		true
@@ -69,10 +67,12 @@ loop do
 				puts "The actual name of #{fake_name} is #{name}."
 			end
 		else
-			puts "You didn't input any names."	
+			puts "You didn't input any names or the names were too long."	
 		end
 		break
-	elsif name != ""
+	elsif name.split(' ')[2] != nil
+		puts "Try again."
+	elsif name != "" && name.split(' ')[2] == nil
 		names_list << name
 		fake_names_list << encrypt(name)
 		puts encrypt(name)
