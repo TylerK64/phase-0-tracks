@@ -63,7 +63,7 @@ loop do
 	name = gets.chomp.strip
 	if name == "quit"
 		full_name_list = names_list.zip(fake_names_list)
-		if full_name_list != nil
+		if !full_name_list.empty?
 			full_name_list.each do |name, fake_name|
 				puts "The actual name of #{fake_name} is #{name}."
 			end
