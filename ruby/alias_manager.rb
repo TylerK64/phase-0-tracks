@@ -20,6 +20,12 @@ end
 
 
 def encrypt (full_name)
+	if full_name == "quit"
+		return
+	elsif full_name == ""
+		return
+	end
+
 	first_name = full_name.split(' ')[0]
 	last_name = full_name.split(' ')[1]
 	first_name = first_name.split('')
@@ -49,11 +55,25 @@ def encrypt (full_name)
 	end	
 end
 
+names_list = []
+fake_names_list = []
+
 loop do 
 	puts "Please enter your name (type 'quit' to exit):"
-	name = gets.chomp
+	name = gets.chomp.strip
 	if name == "quit"
+		full_name_list = names_list.zip(fake_names_list)
+		if full_name_list != nil
+			full_name_list.each do |name, fake_name|
+				puts "The actual name of #{fake_name} is #{name}."
+			end
+		else
+			puts "You didn't input any names."	
+		end
 		break
+	elsif name != ""
+		names_list << name
+		fake_names_list << encrypt(name)
+		puts encrypt(name)
 	end
-	puts encrypt(name)
 end
