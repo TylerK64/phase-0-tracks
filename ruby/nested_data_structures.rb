@@ -57,6 +57,7 @@ p school[:rooms][:gym][:basketball_court][:balls].reverse!
 puts school[:faculty].length
 puts school[:faculty][:principal] += " Senior"
 
+
 student_key = {}
 student_key.merge!(school[:students].each {|student_id, info| puts "#{student_id}'s information is: #{info}"}) #prints ID and info for every student
 
@@ -64,25 +65,31 @@ student_key2 = school[:students].map do |student_id, info|
 	puts "#{student_id}'s information is: #{info}"
 end #last three lines are performing basically the same action as lines 60-61 (by slightly different means)
 
-student_key3 = school[:students].select {|student_id, info| info.include?(:name)} #hash of students which contain a :name key
+student_key3 = school[:students].select {|student_id, info| info.include?(:name)} #selects and returns a hash of students which contain a :name key
 puts student_key3
 
-#student_key4 = {}
-#school[:students].each
+student_key4 = {}
+student_key4.merge!(school[:students].each {|student_id, info| info.key(:name)})
+puts student_key4 #similar to lines 60-61, but different block statement condition and different output
+
 
 student_names = []
-student_names << student_key[:student1].fetch(:name)
-student_names << student_key[:student2].fetch(:name)
-student_names << student_key[:student3].fetch(:name)
-puts student_names
+school[:students].each do |student_id, info|
+	if info.key?(:name)
+		student_names << school[:students][student_id].fetch(:name)
+	end
+end
+puts student_names #printing an array of the each student's name
 
 student_names2 = []
-student_names2 << school[:students][:student1].assoc(:name)
-student_names2 << school[:students][:student2].assoc(:name)
-student_names2 << school[:students][:student3].assoc(:name)
+school[:students].each do |student_id, info|
+	if info.key?(:name)
+		student_names2 << school[:students][student_id].assoc(:name)
+	end
+end
 student_names2.map {|column| column.delete_at(0)}
 student_names2 = student_names2.flatten
-puts student_names2 #printing the student's names a different way
+puts student_names2 #printing the student's names in a more roundabout way
 
 
 school[:rooms].each {|room, details| puts "#{room}'s information: #{details}"}
