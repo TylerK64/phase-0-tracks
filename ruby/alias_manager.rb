@@ -4,6 +4,8 @@
 #find all the vowels in each array
 #use .next to make all vowels increase by 1 character
 
+#couldn't figure out the case when user inputs a name longer than two words (ie: "First Middle Last"), plus not sure if necessary.
+
 def is_vowel? (char)
 	if char == 'A' || char == 'E' || char == 'I' || char == 'O' || char == 'U'
 		true
@@ -18,7 +20,6 @@ def next_vowel (char)
 	char = char.next
 end
 
-
 def encrypt (full_name)
 	if full_name == "quit"
 		return
@@ -28,8 +29,8 @@ def encrypt (full_name)
 
 	first_name = full_name.split(' ')[0]
 	last_name = full_name.split(' ')[1]
-	first_name = first_name.split('')
 
+	first_name = first_name.split('')
 	first_name.map! do |char|
 		if is_vowel?(char)
 			next_vowel(char)
