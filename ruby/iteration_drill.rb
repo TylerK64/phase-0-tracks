@@ -7,14 +7,27 @@ zombie_apocalypse_supplies = ["hatchet", "rations", "water jug", "binoculars",
 # printing each item in the array separated by an asterisk
 # ----
 
+#zombie_apocalypse_supplies.each {|supplies| print supplies, "*"}
+
 # 2. In order to keep yourself organized, sort your zombie_apocalypse_supplies
 # in alphabetical order. Do not use any special built-in methods.
 # ----
+
 
 # 3. Create a method to see if a particular item (string) is in the
 # zombie_apocalypse_supplies. Do not use any special built-in methods.
 # For instance: are boots in your list of supplies?
 # ----
+
+def check_string(string)
+	zombie_apocalypse_supplies.each do |item|
+		if string.downcase == item.downcase
+			return true
+		end
+	end
+end
+
+puts check_string("shotgun")
 
 # 4. You can't carry too many things, you've only got room in your pack for 5.
 # Remove items in your zombie_apocalypse_supplies in any way you'd like,
