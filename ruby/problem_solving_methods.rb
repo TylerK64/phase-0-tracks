@@ -28,3 +28,39 @@ def fib(int)
   end
   return array
 end
+
+# Release 2 : Sort an Array
+
+# Define a method that takes an array of numbers
+# Compare the 1st and 2nd items in the array :
+  # and if 1st < 2nd, leave as-is
+  # otherwise switch them reverse the swap them
+# Then move on to the 2nd and 3rd items in the array
+  # if 2nd < 3rd, leave as-is
+  # otherwise switch them/ reverse/ swap
+# Then move onto the 3rd and 4th...
+# Once all items have been compared, perform a check
+  # If 1st < 2nd < 3rd < 4th.. (and so on) is true, you're done!
+  # Otherwise, must start the process again, starting at 1st and 2nd items.
+# Repeat the process until 1st < 2nd < 3rd < 4th is true
+
+def bubble_sort(array)
+  def run_passes(array)
+    array.each do |index|
+      if array[index] < array[(index+1)]
+        array = array
+      else
+        array = [array[(index+1)], [array[index]]]
+      # pass_0_array now equals [1, 5]
+      end
+    end
+  end
+if (array[0] < array[1] < array[2] < array[3] < array[4]) == false
+  run_passes(array)
+else
+  puts array
+end
+end
+
+array = [5, 1, 4, 2, 8]
+p bubble_sort(array)
