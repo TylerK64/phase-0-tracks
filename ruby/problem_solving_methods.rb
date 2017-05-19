@@ -16,3 +16,15 @@ end
 arr = [42, 89, 23, 1]
 search_arry(arr, 24)
 
+def fib(int)
+  array = [0, 1]
+  counter = 0
+  while counter < int
+    if array.length < int
+      next_number = array[-1] + array[-2]
+      array << next_number
+    end
+    counter += 1
+  end
+  return array
+end
