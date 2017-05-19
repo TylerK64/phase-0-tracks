@@ -12,7 +12,20 @@ zombie_apocalypse_supplies = ["hatchet", "rations", "water jug", "binoculars",
 # 2. In order to keep yourself organized, sort your zombie_apocalypse_supplies
 # in alphabetical order. Do not use any special built-in methods.
 # ----
+arr = []
+var_arr = []
+counter = 0
+var_count = 0
 
+zombie_apocalypse_supplies.each do |item|
+	while counter < zombie_apocalypse_supplies.length
+		var = item <=> zombie_apocalypse_supplies[counter]
+		counter += 1
+		var_arr[zombie_apocalypse_supplies.index(item)] += var
+		puts var
+	end
+end
+puts var_arr
 
 # 3. Create a method to see if a particular item (string) is in the
 # zombie_apocalypse_supplies. Do not use any special built-in methods.
@@ -20,6 +33,9 @@ zombie_apocalypse_supplies = ["hatchet", "rations", "water jug", "binoculars",
 # ----
 
 def check_string(string)
+	zombie_apocalypse_supplies = ["hatchet", "rations", "water jug", "binoculars",
+                              "shotgun", "compass", "CB radio", "batteries"]
+
 	zombie_apocalypse_supplies.each do |item|
 		if string.downcase == item.downcase
 			return true
@@ -27,7 +43,7 @@ def check_string(string)
 	end
 end
 
-puts check_string("shotgun")
+#puts check_string("shotgun")
 
 # 4. You can't carry too many things, you've only got room in your pack for 5.
 # Remove items in your zombie_apocalypse_supplies in any way you'd like,
