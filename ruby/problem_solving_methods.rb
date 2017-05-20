@@ -45,21 +45,20 @@ end
 # Repeat the process until 1st < 2nd < 3rd < 4th is true
 
 def bubble_sort(array)
-  def run_passes(array)
-    array.each do |index|
-      if array[index] < array[(index+1)]
-        array = array
-      else
-        array = [array[(index+1)], [array[index]]]
-      # pass_0_array now equals [1, 5]
+  return if array.length <= 1
+  swapped = true
+  while swapped do
+    swapped = false
+    0.upto(array.length-2) do |x|
+      if array[x] > array[x+1]
+        a = array[x]
+        array[x] = array[x+1]
+        array[x+1] = a
+        swapped = true
       end
     end
   end
-if (array[0] < array[1] < array[2] < array[3] < array[4]) == false
-  run_passes(array)
-else
-  puts array
-end
+  array
 end
 
 array = [5, 1, 4, 2, 8]
