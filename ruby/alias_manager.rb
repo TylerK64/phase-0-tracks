@@ -1,36 +1,41 @@
 #create an array with two items using .split(' ')
 #swap first and last name
 #split name into individual chars using .split('')
-#find all the vowels in each array
-#use .next to make all vowels increase by 1 character
+#method is_vowel? - 
+#method next_vowel - 
+#
+
 class String
 	def is_upper?
 		return false if self.size > 1
 		('A'..'Z').include? self
 	end
+end
 
-	def is_lower?
-		return false if self.size > 1
-		(a..z).include? self
+vowels = {
+	a: "e",
+	e: "i",
+	i: "o",
+	o: "u",
+	u: "a"
+}
+
+#puts vowels.has_key?(:a)
+
+def next_vowel(key)
+	vowels = {a: "e", e: "i", i: "o", o: "u", u: "a"}
+	if vowels.has_key?(key) 
+		  key = vowels[key]
 	end
 end
 
+puts next_vowel(:a)
 
-def next_vowel (char)
-	if char == 'A' || char == 'E' || char == 'I' || char == 'O' || char == 'U'
-		true
-	elsif char == 'a' || char == 'e' || char == 'i' || char == 'o' || char == 'u'
-		true
-	else
-		false
+def is_vowel?(char)
+	if char = 'A' || 'E' || 'I' || 'O' || 'U'
+	   char.is_upper?
 	end
 end
-
-if "A".is_upper?
-	puts "A is upper"
-end
-
-
 
 
 def encrypt (full_name)
