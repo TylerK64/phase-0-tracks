@@ -12,45 +12,41 @@ class String
 	end
 end
 
-vowels = {
-	a: "e",
-	e: "i",
-	i: "o",
-	o: "u",
-	u: "a"
-}
-
-#puts vowels.has_key?(:a)
-
 public def next_vowel(key)
-	vowels = {a: "e", e: "i", i: "o", o: "u", u: "a"}
+	vowels = {'a' => 'e', 'e' => 'i', 'i' => 'o', 'o' => 'u', 'u' => 'a'}
 	if vowels.has_key?(key) 
 		  key = vowels[key]
 	end
 end
 
-=begin
-a = []
-a << next_vowel(:a)
-p a
-=end
-
 def is_vowel?(char)
-	vowels = {a: "e", e: "i", i: "o", o: "u", u: "a"}
+	vowels = {'a' => 'e', 'e' => 'i', 'i' => 'o', 'o' => 'u', 'u' => 'a'}
 	if vowels.has_value?(char)
-		 return true
+		true
+	else
+		false
 	end
 end
 
-=begin
-a = is_vowel?("a")
-
-if is_vowel?("a") 
-	p next_vowel(:a)
+#need to check if next_cons and special_cons? methods work
+def next_cons(key)
+	cons = {'d' => 'f', 'h' => 'j', 'n' => 'p', 't' => 'v'}
+	if cons.has_key?(key)
+		key = cons[key]
 end
-=end
+
+def special_cons?(char)
+	cons = {'d' => 'f', 'h' => 'j', 'n' => 'p', 't' => 'v'}
+	if cons.has_value?(char)
+		true
+	else
+		false
+end
+
 
 def encrypt (full_name)
+	vowels = {'a' => 'e', 'e' => 'i', 'i' => 'o', 'o' => 'u', 'u' => 'a'}
+
 	if full_name == "quit"
 		return
 	elsif full_name == ""
@@ -63,9 +59,11 @@ def encrypt (full_name)
 	first_name = first_name.split('')
 	first_name.map! do |char|
 		if is_vowel?(char)
-			next_vowel(char)
+			char = next_vowel(char)
+		elsif char == "z"
+			char = "b"			
 		else
-			char = char
+			char = char.next
 		end
 	end
 	first_name_encrypt = first_name.join('')
@@ -74,9 +72,11 @@ def encrypt (full_name)
 		last_name = last_name.split('')
 		last_name.map! do |char|
 			if is_vowel?(char)
-				next_vowel(char)
+				char = next_vowel(char)
+			elsif char == "z"
+				char = "b"	
 			else
-				char = char
+				char = char.next
 			end
 		end
 		last_name_encrypt = last_name.join('')
