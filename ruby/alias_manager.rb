@@ -3,8 +3,20 @@
 #split name into individual chars using .split('')
 #find all the vowels in each array
 #use .next to make all vowels increase by 1 character
+class String
+	def is_upper?
+		return false if self.size > 1
+		('A'..'Z').include? self
+	end
 
-def is_vowel? (char)
+	def is_lower?
+		return false if self.size > 1
+		(a..z).include? self
+	end
+end
+
+
+def next_vowel (char)
 	if char == 'A' || char == 'E' || char == 'I' || char == 'O' || char == 'U'
 		true
 	elsif char == 'a' || char == 'e' || char == 'i' || char == 'o' || char == 'u'
@@ -14,9 +26,12 @@ def is_vowel? (char)
 	end
 end
 
-def next_vowel (char)
-	char = char.next
+if "A".is_upper?
+	puts "A is upper"
 end
+
+
+
 
 def encrypt (full_name)
 	if full_name == "quit"
