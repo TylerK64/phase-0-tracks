@@ -22,21 +22,33 @@ vowels = {
 
 #puts vowels.has_key?(:a)
 
-def next_vowel(key)
+public def next_vowel(key)
 	vowels = {a: "e", e: "i", i: "o", o: "u", u: "a"}
 	if vowels.has_key?(key) 
 		  key = vowels[key]
 	end
 end
 
-puts next_vowel(:a)
+=begin
+a = []
+a << next_vowel(:a)
+p a
+=end
 
 def is_vowel?(char)
-	if char = 'A' || 'E' || 'I' || 'O' || 'U'
-	   char.is_upper?
+	vowels = {a: "e", e: "i", i: "o", o: "u", u: "a"}
+	if vowels.has_value?(char)
+		 return true
 	end
 end
 
+=begin
+a = is_vowel?("a")
+
+if is_vowel?("a") 
+	p next_vowel(:a)
+end
+=end
 
 def encrypt (full_name)
 	if full_name == "quit"
@@ -79,7 +91,7 @@ fake_names_list = []
 
 loop do 
 	puts "Please enter your name (type 'quit' to exit):"
-	name = gets.chomp.strip
+	name = gets.chomp.strip.downcase
 	if name == "quit"
 		full_name_list = names_list.zip(fake_names_list)
 		if !full_name_list.empty?
