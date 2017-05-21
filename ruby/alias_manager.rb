@@ -50,8 +50,6 @@ def special_cons?(char)
 end
 
 def encrypt (full_name)
-	vowels = {'a' => 'e', 'e' => 'i', 'i' => 'o', 'o' => 'u', 'u' => 'a'}
-
 	if full_name == "quit"
 		return
 	elsif full_name == ""
