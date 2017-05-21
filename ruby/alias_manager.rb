@@ -112,7 +112,17 @@ loop do
 	elsif name.split(' ')[2] != nil
 		puts "Try again."
 	elsif name != "" && name.split(' ')[2] == nil
-		names_hash[name] = encrypt(name)
 		puts encrypt(name)
+		name2 = name
+		first_name = name2.split(' ')[0]
+    last_name = name2.split(' ')[1]
+    if first_name[0].is_lower?
+      first_name.capitalize!
+    end
+    if last_name[0].is_lower?
+      last_name.capitalize!
+    end
+    name2 = first_name + " " + last_name
+		names_hash[name2] = encrypt(name)
 	end
 end
