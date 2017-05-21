@@ -28,21 +28,21 @@ def is_vowel?(char)
 	end
 end
 
-#need to check if next_cons and special_cons? methods work
 def next_cons(key)
-	cons = {'d' => 'f', 'h' => 'j', 'n' => 'p', 't' => 'v'}
+	cons = {'d' => 'f', 'h' => 'j', 'n' => 'p', 't' => 'v', 'z' => 'b'}
 	if cons.has_key?(key)
 		key = cons[key]
+	end
 end
 
 def special_cons?(char)
-	cons = {'d' => 'f', 'h' => 'j', 'n' => 'p', 't' => 'v'}
-	if cons.has_value?(char)
+	cons = {'d' => 'f', 'h' => 'j', 'n' => 'p', 't' => 'v', 'z' => 'b'}
+	if cons.has_key?(char)
 		true
 	else
 		false
+	end
 end
-
 
 def encrypt (full_name)
 	vowels = {'a' => 'e', 'e' => 'i', 'i' => 'o', 'o' => 'u', 'u' => 'a'}
