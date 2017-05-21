@@ -10,6 +10,11 @@ class String
 		return false if self.size > 1
 		('A'..'Z').include? self
 	end
+
+	def is_lower?
+		return false if self.size > 1
+		('a'..'z').include? self
+	end
 end
 
 public def next_vowel(key)
@@ -60,42 +65,46 @@ def encrypt (full_name)
 	first_name.map! do |char|
 		if is_vowel?(char)
 			char = next_vowel(char)
-		elsif char == "z"
-			char = "b"			
+		elsif special_cons?(char)
+			char = next_cons(char)
 		else
 			char = char.next
 		end
 	end
 	first_name_encrypt = first_name.join('')
+	if !first_name_encrypt[0].is_upper?
+		first_name_encrypt.capitalize!
+	end
 
 	if last_name != nil
 		last_name = last_name.split('')
 		last_name.map! do |char|
 			if is_vowel?(char)
 				char = next_vowel(char)
-			elsif char == "z"
-				char = "b"	
+			elsif special_cons?(char)
+				char = next_cons(char)	
 			else
 				char = char.next
 			end
 		end
 		last_name_encrypt = last_name.join('')
+		if !last_name_encrypt[0].is_upper?
+			last_name_encrypt.capitalize!
+		end
 		full_name_encrypt = last_name_encrypt + " " + first_name_encrypt
 	else
 		full_name_encrypt = first_name_encrypt
 	end	
 end
 
-names_list = []
-fake_names_list = []
+names_hash = {}
 
 loop do 
 	puts "Please enter your name (type 'quit' to exit):"
 	name = gets.chomp.strip.downcase
 	if name == "quit"
-		full_name_list = names_list.zip(fake_names_list)
-		if !full_name_list.empty?
-			full_name_list.each do |name, fake_name|
+		if !names_hash.empty?
+			names_hash.each do |name, fake_name|
 				puts "The actual name of #{fake_name} is #{name}."
 			end
 		else
@@ -105,8 +114,7 @@ loop do
 	elsif name.split(' ')[2] != nil
 		puts "Try again."
 	elsif name != "" && name.split(' ')[2] == nil
-		names_list << name
-		fake_names_list << encrypt(name)
+		names_hash[name] = encrypt(name)
 		puts encrypt(name)
 	end
 end
