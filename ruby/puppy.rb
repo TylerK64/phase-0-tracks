@@ -7,7 +7,7 @@ Friendliness: high
 Cuteness: very high
 Name: varies
 Color: varies
-Ears: big
+Ear size: big
 
 BEHAVIOR ------------------------------------
 Tail wag
