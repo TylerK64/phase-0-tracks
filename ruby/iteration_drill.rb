@@ -106,19 +106,23 @@ end
 # the year 2000. Do not use any special built-in methods.
 # ----
 extinct_animals2 = {}
-extinct_animals2 = extinct_animals.each do |animal, year|
+extinct_animals.map do |animal, year|
   if year < 2000
-    extinct_animals[animal] = year
+    extinct_animals2[animal] = year
   end
 end
 extinct_animals = extinct_animals2
-p extinct_animals
+#p extinct_animals
 
 # 3. Our calculations were completely off, turns out all of those animals went
 # extinct 3 years before the date provided. Update the values in extinct_animals
 # so they accurately reflect what year the animal went extinct.
 # Do not use any special built-in methods.
 # ----
+extinct_animals.map do |animal, year|
+  extinct_animals[animal] = year - 3
+end
+#p extinct_animals
 
 # 4. You've heard that the following animals might be extinct, but you're not sure.
 # Check if they're included in extinct_animals, one by one:
@@ -127,9 +131,32 @@ p extinct_animals
 # "Saiga Antelope"
 # Do not use any special built-in methods.
 # ----
+=begin
+if extinct_animals.has_key?("Andean Cat")
+  puts "Andean Cat is in extinct_animals"
+else
+  puts "Andean Cat is not in extinct_animals"
+end
+if extinct_animals.has_key?("Dodo")
+  puts "Dodo is in extinct_animals"
+else
+  puts "Dodo is not in extinct_animals"
+end
+if extinct_animals.has_key?("Saiga Antelope")
+  puts "Saiga Antelope is in extinct_animals"
+else
+  puts "Saiga Antelope is not in extinct_animals"
+end
+=end
 
 # 5. We just found out that the Passenger Pigeon is actually not extinct!
 # Remove them from extinct_animals and return the key value pair as a two item array.
 # Find the built-in method that helps you accomplish this in the Ruby documentation
 # for Hashes.
 # ----
+#Couldn't find a method that deletes and returns the key value pair as an array (as one process).
+not_extinct = {}
+not_extinct = extinct_animals.select {|key, value| key == "Passenger Pigeon"}
+not_extinct = not_extinct.to_a.flatten
+#p not_extinct
+#p extinct_animals
