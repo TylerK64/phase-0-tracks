@@ -55,6 +55,17 @@ def compare (string1, string2)
   end
 end
 
+def sort_array (arr)
+  counter = 0
+  arr2 = []
+  while counter <= arr.length-2
+    if !compare(arr[counter], arr[counter+1])
+      arr2 << counter+1
+    end
+  end
+end
+
+
 zombie_apocalypse_supplies = ["hatchet", "rations", "water jug", "binoculars",
                               "shotgun", "compass", "CB radio", "batteries"]
 
@@ -63,15 +74,14 @@ counter = 0
 
 zombie_apocalypse_supplies.each do |item|
   i = zombie_apocalypse_supplies.index(item)
-  if counter < zombie_apocalypse_supplies.length-1
+  if i <= zombie_apocalypse_supplies.length-2
     if compare(item, zombie_apocalypse_supplies[i+1])
       arr[i] = item
     elsif !compare(item, zombie_apocalypse_supplies[i+1])
-      a = zombie_apocalypse_supplies[i]
+      a = item
       arr[i] = zombie_apocalypse_supplies[i+1]
       arr[i+1] = a
     end
-    counter += 1
   end
 end
 
