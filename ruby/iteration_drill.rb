@@ -15,7 +15,6 @@ zombie_apocalypse_supplies.each do |supplies|
   end
 end
 
-
 # 2. In order to keep yourself organized, sort your zombie_apocalypse_supplies
 # in alphabetical order. Do not use any special built-in methods.
 # ----
@@ -71,7 +70,7 @@ p sort_array(zombie_apocalypse_supplies)
 
 #not sure why 'CB radio' comes before 'batteries'
 #checked in irb and online for alphabetical rules and it seems that capitalized letters take precedence
-#over lowercase letters, but I would think a lowercase 'b' should come before uppercase 'C'
+#over lowercase letters, but I would intuitively think a lowercase 'b' should come before uppercase 'C'
 
 # 3. Create a method to see if a particular item (string) is in the
 # zombie_apocalypse_supplies. Do not use any special built-in methods.
@@ -96,11 +95,11 @@ end
 # Remove items in your zombie_apocalypse_supplies in any way you'd like,
 # leaving only 5. Do not use any special built-in methods.
 # ----
-arr = []
+arr1 = []
 5.times do |x|
-  arr[x] = zombie_apocalypse_supplies[x]
+  arr1[x] = zombie_apocalypse_supplies[x]
 end
-zombie_apocalypse_supplies = arr
+zombie_apocalypse_supplies = arr1
 #p zombie_apocalypse_supplies
 
 # 5. You found another survivor! This means you can combine your supplies.
@@ -130,14 +129,14 @@ extinct_animals = {
 # 1. Iterate through extinct_animals hash, printing each key/value pair
 # with a dash in between the key and value, and an asterisk between each pair.
 # ----
-=begin
+
 extinct_animals.each do |animal, year|
   print animal + "-" + year.to_s
   if year != 1923
     print " * "
   end
 end
-=end
+
 
 # 2. Keep only animals in extinct_animals if they were extinct before
 # the year 2000. Do not use any special built-in methods.
@@ -168,7 +167,7 @@ end
 # "Saiga Antelope"
 # Do not use any special built-in methods.
 # ----
-=begin
+
 if extinct_animals.has_key?("Andean Cat")
   puts "Andean Cat is in extinct_animals"
 else
@@ -184,16 +183,18 @@ if extinct_animals.has_key?("Saiga Antelope")
 else
   puts "Saiga Antelope is not in extinct_animals"
 end
-=end
+
 
 # 5. We just found out that the Passenger Pigeon is actually not extinct!
 # Remove them from extinct_animals and return the key value pair as a two item array.
 # Find the built-in method that helps you accomplish this in the Ruby documentation
 # for Hashes.
 # ----
-#Couldn't find a method that deletes and returns the key value pair as an array (as one process).
+
 not_extinct = {}
 not_extinct = extinct_animals.select {|key, value| key == "Passenger Pigeon"}
 not_extinct = not_extinct.to_a.flatten
 #p not_extinct
 #p extinct_animals
+
+#Couldn't find a method that deletes and returns the key value pair as an array (as one process).
