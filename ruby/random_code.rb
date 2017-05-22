@@ -25,26 +25,36 @@ def compare (string1, string2)
   #compares two strings to find alphabetical order
   #returns true if string1 is first alphabetically or false if string2 is first alphabetically
   #otherwise nil should be returned if the two strings are equal
+
   counter = 0
-  while counter <= string1.length || counter <= string2.length
-    if counter == string1.length && counter < string2.length
+  n1 = string1.length - 1
+  n2 = string2.length - 1
+
+  while counter < string1.length || counter < string2.length
+    if counter == n1 && counter < n2
       return true
     end
-    if counter == string2.length && counter < string1.length
+    if counter == n2 && counter < n1
       return false
     end
-    if counter == string1.length && counter == string2.length
+    if counter == n1 && counter == n2
+      if string1[counter] < string2[counter]
+        return true
+      elsif string2[counter] < string1[counter]
+        return false
+      end
       return nil
     end
 
     if string1[counter] < string2[counter]
-      true
+      return true
     elsif string2[counter] < string1[counter]
-      false
+      return false
     end
     counter += 1
   end
 end
-p "j" < " "
 
-p compare("hii", "hi")
+a = "hit"
+
+p compare("water jug", "water hug")
