@@ -62,7 +62,6 @@ arr = []
 5.times do |x|
   arr[x] = zombie_apocalypse_supplies[x]
 end
-
 zombie_apocalypse_supplies = arr
 #p zombie_apocalypse_supplies
 
