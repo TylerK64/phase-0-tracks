@@ -58,12 +58,20 @@ end
 def sort_array (arr)
   counter = 0
   arr2 = []
-  while counter <= arr.length-2
-    if !compare(arr[counter], arr[counter+1])
-      arr2 << counter+1
+  swapped = true
+  while swapped do
+    swapped = false
+    0.upto(arr.length-2) do |x|
+      if !compare(arr[x], arr[x+1])
+        arr[x], arr[x+1] = arr[x+1], arr[x]
+        swapped = true
+      end
     end
   end
+  return arr
 end
+
+p sort_array(zombie_apocalypse_supplies)
 
 
 zombie_apocalypse_supplies = ["hatchet", "rations", "water jug", "binoculars",
@@ -85,4 +93,4 @@ zombie_apocalypse_supplies.each do |item|
   end
 end
 
-p arr
+#p arr

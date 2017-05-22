@@ -6,14 +6,15 @@ zombie_apocalypse_supplies = ["hatchet", "rations", "water jug", "binoculars",
 # 1. Iterate through the zombie_apocalypse_supplies array,
 # printing each item in the array separated by an asterisk
 # ----
-=begin
+
 zombie_apocalypse_supplies.each do |supplies|
   print supplies
-  if supplies != "batteries"
-  print "*"
+  i = zombie_apocalypse_supplies.index(supplies)
+  if (i+1) < zombie_apocalypse_supplies.length
+    print "*"
   end
 end
-=end
+
 
 # 2. In order to keep yourself organized, sort your zombie_apocalypse_supplies
 # in alphabetical order. Do not use any special built-in methods.
@@ -51,6 +52,26 @@ def compare (string1, string2)
     counter += 1
   end
 end
+
+def sort_array (arr)
+  swapped = true
+  while swapped do
+    swapped = false
+    0.upto(arr.length-2) do |x|
+      if !compare(arr[x], arr[x+1])
+        arr[x], arr[x+1] = arr[x+1], arr[x]
+        swapped = true
+      end
+    end
+  end
+  return arr
+end
+
+p sort_array(zombie_apocalypse_supplies)
+
+#not sure why 'CB radio' comes before 'batteries'
+#checked in irb and online for alphabetical rules and it seems that capitalized letters take precedence
+#over lowercase letters, but I would think a lowercase 'b' should come before uppercase 'C'
 
 # 3. Create a method to see if a particular item (string) is in the
 # zombie_apocalypse_supplies. Do not use any special built-in methods.
