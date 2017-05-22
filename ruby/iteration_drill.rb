@@ -18,22 +18,39 @@ end
 # 2. In order to keep yourself organized, sort your zombie_apocalypse_supplies
 # in alphabetical order. Do not use any special built-in methods.
 # ----
-=begin
-arr = []
-var_arr = []
-counter = 0
-var_count = 0
+def compare (string1, string2)
+  #compares two strings to find alphabetical order
+  #returns true if string1 is first alphabetically or false if string2 is first alphabetically
+  #otherwise nil should be returned if the two strings are equal
 
-zombie_apocalypse_supplies.each do |item|
-	while counter < zombie_apocalypse_supplies.length
-		var = item <=> zombie_apocalypse_supplies[counter]
-		counter += 1
-		var_arr[zombie_apocalypse_supplies.index(item)] += var
-		puts var
-	end
+  counter = 0
+  n1 = string1.length - 1
+  n2 = string2.length - 1
+
+  while counter < string1.length || counter < string2.length
+    if string1[counter] < string2[counter]
+      return true
+    elsif string2[counter] < string1[counter]
+      return false
+    end
+
+    if counter == n1 && counter < n2
+      return true
+    end
+    if counter == n2 && counter < n1
+      return false
+    end
+    if counter == n1 && counter == n2
+      if string1[counter] < string2[counter]
+        return true
+      elsif string2[counter] < string1[counter]
+        return false
+      end
+      return nil
+    end
+    counter += 1
+  end
 end
-puts var_arr
-=end
 
 # 3. Create a method to see if a particular item (string) is in the
 # zombie_apocalypse_supplies. Do not use any special built-in methods.

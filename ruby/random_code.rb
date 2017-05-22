@@ -31,6 +31,12 @@ def compare (string1, string2)
   n2 = string2.length - 1
 
   while counter < string1.length || counter < string2.length
+    if string1[counter] < string2[counter]
+      return true
+    elsif string2[counter] < string1[counter]
+      return false
+    end
+
     if counter == n1 && counter < n2
       return true
     end
@@ -45,16 +51,28 @@ def compare (string1, string2)
       end
       return nil
     end
+    counter += 1
+  end
+end
 
-    if string1[counter] < string2[counter]
-      return true
-    elsif string2[counter] < string1[counter]
-      return false
+zombie_apocalypse_supplies = ["hatchet", "rations", "water jug", "binoculars",
+                              "shotgun", "compass", "CB radio", "batteries"]
+
+arr = []
+counter = 0
+
+zombie_apocalypse_supplies.each do |item|
+  i = zombie_apocalypse_supplies.index(item)
+  if counter < zombie_apocalypse_supplies.length-1
+    if compare(item, zombie_apocalypse_supplies[i+1])
+      arr[i] = item
+    elsif !compare(item, zombie_apocalypse_supplies[i+1])
+      a = zombie_apocalypse_supplies[i]
+      arr[i] = zombie_apocalypse_supplies[i+1]
+      arr[i+1] = a
     end
     counter += 1
   end
 end
 
-a = "hit"
-
-p compare("water jug", "water hug")
+p arr
