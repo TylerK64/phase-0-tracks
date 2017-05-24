@@ -5,14 +5,14 @@
 #TDD: write basic game class stuct, check input & output; check repeatable word; check correct output
 
 class Game
-  attr_reader :game_status, :guess_count
+  attr_reader :is_over, :guess_count
 
   def initialize(str)
     @answer = str
     @guess_answers = []
     @guess_count = @answer.length
     @guess_feedback
-    @game_status
+    @is_over = false
   end
 
   def check_guess(str)
@@ -28,21 +28,14 @@ class Game
   end
 
   def check_status
-    @guess_answers.each do |i|
-      if i == @answer
-        puts "You win!"
-        @game_status = true
-      else
-        false         
-      end
-    end
-
-    if @guess_count == 0
+    if @guess_answers.include?(@answer)
+      puts "You found the secret word: #{@answer}. You win!"
+      @is_over = true
+    elsif @guess_count == 0
       puts "Sorry, you lose"
-      @game_status = false
+      @is_over = true
     end
   end
-
 end
 
 puts "Please enter your secret word:"
@@ -50,7 +43,7 @@ answer = gets.chomp.strip
 
 game = Game.new(answer)
 
-until game.guess_count == 0 || game.game_status == true
+while !game.is_over
   puts "Please enter your guess word:"
   guess = gets.chomp.strip
   game.check_guess(guess)
