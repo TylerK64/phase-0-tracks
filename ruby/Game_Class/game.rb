@@ -56,8 +56,11 @@ class Game
   end
 end
 
-puts "Please enter your secret word:"
-answer = gets.chomp.strip.downcase
+answer = ""
+until !answer.empty?
+  puts "Please enter your secret word:"
+  answer = gets.chomp.strip.downcase
+end
 
 game = Game.new(answer)
 
