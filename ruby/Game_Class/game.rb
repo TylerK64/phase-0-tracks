@@ -22,35 +22,11 @@ class Game
       @guess_answers << str
       @guess_count -= 1
     end
-    p @guess_answers
   end
 
   def feedback(str)
-=begin
-    str.length.times do |i|
-      if @answer.include?(str[i])
-        @answer.each_char do |j|
-          if j == str[i] && feedback[@answer.index(j)] == "_"
-            feedback[@answer.index(j)] = str[i]
-          end
-        end
-      end
-      p feedback
-    end
-
-    @answer.each_char do |i|    #@answer.length.times do |i|?
-      a = @answer.index(i)
-      if str.include?(i)
-        @feedback[a] = i
-      elsif @feedback[a] == nil
-        @feedback[a] = "_"
-      end
-      p @feedback
-    end
-=end
-    
     str.each_char do |i|
-      if @answer.include?(i) #&& feedback[@answer.index(i)].empty?
+      if @answer.include?(i)
         a = @answer.dup
         @answer.count(i).times do |x|
           y = a.index(i) + x
@@ -59,12 +35,19 @@ class Game
       end    
     end
 
-    
+    @answer.length.times do |x|
+      if @feedback[x] == nil
+        @feedback[x] = "_"
+      end
+    end
+
+    @feedback.join(" ")
   end
 
   def check_status
     if @guess_answers.include?(@answer)
-      puts "You found the secret word: #{@answer}. You win!"
+      guess_count = @answer.length - @guess_count
+      puts "You found the secret word(s): '#{@answer}' in #{guess_count} guess(es)! You win!"
       @is_over = true
     elsif @guess_count == 0
       puts "Sorry, you lose"
@@ -80,8 +63,11 @@ game = Game.new(answer)
 
 while !game.is_over
   puts "Please enter your guess word:"
-  guess = gets.chomp.strip
+  guess = gets.chomp.strip.downcase
   game.check_guess(guess)
   game.check_status
-  game.feedback(guess)
+
+  if !game.is_over
+    puts game.feedback(guess)
+  end
 end
