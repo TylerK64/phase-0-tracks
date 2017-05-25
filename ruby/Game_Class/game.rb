@@ -3,15 +3,17 @@
 #attributes: correct answer, guess answers (array), guess counter, is_over (boolean), guess output, win (true)/lose (false)
 #methods: check guess, check repeat answer, update output/feedback, check game status for win or lose condition
 #TDD: write basic game class stuct, check input & output; check repeatable word; check correct output
+#feedback method: if you find a new char match from guess, add it to the feedback array
+#want to set feedback array so once a character is set, it can't be later changed?
 
 class Game
-  attr_reader :is_over, :guess_count
+  attr_reader :is_over
 
   def initialize(str)
     @answer = str
     @guess_answers = []
+    @feedback = []
     @guess_count = @answer.length
-    @guess_feedback
     @is_over = false
   end
 
@@ -23,8 +25,54 @@ class Game
     p @guess_answers
   end
 
-  def feedback
+  def feedback(str)
+    a = @answer
+=begin
+    str.length.times do |i|
+      if @answer.include?(str[i])
+        @answer.each_char do |j|
+          if j == str[i] && feedback[@answer.index(j)] == "_"
+            feedback[@answer.index(j)] = str[i]
+          end
+        end
+      end
+      p feedback
+    end
 
+    @answer.each_char do |i|    #@answer.length.times do |i|?
+      a = @answer.index(i)
+      if str.include?(i)
+        @feedback[a] = i
+      elsif @feedback[a] == nil
+        @feedback[a] = "_"
+      end
+      p @feedback
+    end
+=end
+    
+    str.each_char do |i|
+      if @answer.include?(i) #&& feedback[str.index(i)].empty?
+        @answer.count(i).times do |j|
+          a = @answer.
+          @feedback[@answer.index(j)] = i
+        end
+      end
+      p @feedback
+     
+    end
+
+  end
+
+  def find_index(char)
+    a = []
+    @answer.each_char do |i|
+      if char == i
+        a[@answer.index(i)] = i
+      else
+        a[@answer.index(i)] = false
+      end
+    end
+    return a
   end
 
   def check_status
@@ -39,7 +87,7 @@ class Game
 end
 
 puts "Please enter your secret word:"
-answer = gets.chomp.strip
+answer = gets.chomp.strip.downcase
 
 game = Game.new(answer)
 
@@ -48,4 +96,5 @@ while !game.is_over
   guess = gets.chomp.strip
   game.check_guess(guess)
   game.check_status
+  game.feedback(guess)
 end
