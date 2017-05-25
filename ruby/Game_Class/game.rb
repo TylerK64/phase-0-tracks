@@ -26,7 +26,6 @@ class Game
   end
 
   def feedback(str)
-    a = @answer
 =begin
     str.length.times do |i|
       if @answer.include?(str[i])
@@ -51,28 +50,16 @@ class Game
 =end
     
     str.each_char do |i|
-      if @answer.include?(i) #&& feedback[str.index(i)].empty?
-        @answer.count(i).times do |j|
-          a = @answer.
-          @feedback[@answer.index(j)] = i
+      if @answer.include?(i) #&& feedback[@answer.index(i)].empty?
+        a = @answer.dup
+        @answer.count(i).times do |x|
+          y = a.index(i) + x
+          @feedback[y] = a.slice!(i)
         end
-      end
-      p @feedback
-     
+      end    
     end
 
-  end
-
-  def find_index(char)
-    a = []
-    @answer.each_char do |i|
-      if char == i
-        a[@answer.index(i)] = i
-      else
-        a[@answer.index(i)] = false
-      end
-    end
-    return a
+    
   end
 
   def check_status
