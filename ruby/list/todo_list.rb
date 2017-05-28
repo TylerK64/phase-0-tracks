@@ -12,7 +12,11 @@ class TodoList
   end
 
   def delete_item(str)
-    @arr.delete_if {|x| x == str}
+    if !@arr.include?(str)
+      puts "List does not contain string, try again."
+    end
+
+    @arr.delete_if {|x| x == str}    
   end
 
   def get_item(int)
@@ -25,4 +29,4 @@ class TodoList
 end
 
 #list = TodoList.new(["list item 1", "list item 2"])
-#p list.get_items
+#list.delete_item("list item 1")
