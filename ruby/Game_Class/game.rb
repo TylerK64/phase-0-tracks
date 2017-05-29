@@ -18,9 +18,11 @@ class Game
   end
 
   def check_guess(str)
-    if !@guess_answers.include?(str) #if guess_answers doesn't include str, add str to the array
-      @guess_answers << str
-      @guess_count -= 1
+    until !str.strip.empty? || str != nil
+      if !@guess_answers.include?(str) #if guess_answers doesn't include str, add str to the array
+       @guess_answers << str
+       @guess_count -= 1
+      end
     end
   end
 
@@ -59,14 +61,14 @@ end
 answer = ""
 until !answer.empty?
   puts "Please enter your secret word:"
-  answer = gets.chomp.strip.downcase
+  answer = gets.strip.downcase
 end
 
 game = Game.new(answer)
 
 while !game.is_over
   puts "Please enter your guess word:"
-  guess = gets.chomp.strip.downcase
+  guess = gets.strip.downcase
   game.check_guess(guess)
   game.check_status
 
