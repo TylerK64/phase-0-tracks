@@ -72,7 +72,7 @@ while !game.is_over
   game.check_guess(guess)
   game.check_status
 
-  if !game.is_over
+  if !game.is_over    #When game is over, no feedback is given.
     puts game.feedback(guess)
   end
 end
