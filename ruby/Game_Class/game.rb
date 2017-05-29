@@ -18,10 +18,10 @@ class Game
   end
 
   def check_guess(str)
-    until !str.strip.empty? || str != nil
-      if !@guess_answers.include?(str) #if guess_answers doesn't include str, add str to the array
-       @guess_answers << str
-       @guess_count -= 1
+    if !@guess_answers.include?(str) #if guess_answers doesn't include str, add str to the array
+      if !str.empty? && str != nil
+        @guess_answers << str
+        @guess_count -= 1
       end
     end
   end
