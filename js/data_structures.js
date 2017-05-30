@@ -29,3 +29,7 @@ var horses = function (arr1, arr2) {
 
 var list = horses (names, colors);
 console.log(list);
+
+
+//Release 2: Building objects using a constructor function
+//Build car object with properties of various data types & at least one function
