@@ -11,4 +11,17 @@ function reverse(string) {
   return reverse_string;
 }
 
-console.log(reverse("hello"));
+var reverse_string = reverse("hello");
+if (1 == 1) {
+  console.log(reverse_string);
+} else {
+  console.log("1 == 2");
+}
+
+var readline = require("readline");
+var prompts = readline.createInterface(process.stdin, process.stdout);
+
+prompts.question("What string would you like to reverse?", function (input) {
+    console.log(reverse(input));
+    process.exit();
+});
