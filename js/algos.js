@@ -19,26 +19,52 @@ function longestWord (arr) {
   return str;
 }
 
+/*
 var arr1 = ["long phrase","longest phrase","longer phrase"];
 var arr2 = ["pear", "apple", "banana", "watermelon", "blueberry"];
 console.log(longestWord(arr1));
 console.log(longestWord(arr2));
-
+*/
 
 //Release 1: Find a key-value match
 //write a function that takes two objects (input)
 //checks if two objects share a key-value pair (condition)
-//returns true if condition is met or false otherwise (output)
+//use Object.keys(objectInput) to find list of keys for each object inputted
+//write function that compares two arrays to see if there is a match
+//compare two keys arrays, if there is a key match -> check values to see if they are equal
+//returns true if values (and keys) are equal or false if no key-value pairs are found (output)
 
 function keyValueMatch(obj1, obj2) {  
-  
+  var keys1 = Object.keys(obj1);
+  var keys2 = Object.keys(obj2);
+
+
+  for (var i = 0; i < keys1.length || i < keys2.length; i++) {
+    var key1 = keys1[i];
+    var key2 = keys2[i];
+    if (key1 == key2) {
+      if (obj1[key1] === obj2[key2]) {
+        return true;
+      }
+    }
+  }
+  return false;
 }
 
-var obj1 = {name: "Steven", age: 54};
-var obj2 = {name: "Tamir", age: 54};
-var ex1 = {animal: "Dog", legs: 4};
-var ex2 = {animal: "Dog", legs: 3};
+function keyMatch(arr1, arr2) {
+  var i = 0;
+  while (i < arr1.length || i < arr2.length) {
+    
+    i += 1;
+  }
+}
 
+var obj1 = {name: "Steven", age: 54, weight: 100};
+var obj2 = {name: "Tamir", age: 54, weight: 120 };
+var ex1 = {animal: "Dog", legs: 4, color: "white", condition: "OK", age: 4};
+var ex2 = {animal: "Cat", legs: 3, 'age': 4};
+
+console.log(keyValueMatch(ex1, ex2));
 
 
 //Release 2: Generate random test data
