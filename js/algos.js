@@ -32,7 +32,7 @@ console.log(longestWord(arr2));
 //checks if two objects share a key-value pair (condition)
 //use Object.keys(objectInput) to find list of keys for each object inputted
 //write function that checks an array to see if there is an element equal to a value/object; use array.includes()
-//    !!want to compare entirety of two 'keys' arrays such that ALL key matches are found!!
+//consider making function to find # of matching keys between two arrays, so main function can iterate a specific number of times (did not implement)  
 //compare two keys arrays, if there is a key match -> check values to see if they are equal
 //returns true if values (and keys) are equal or false if no key-value pairs are found (output)
 
@@ -41,8 +41,8 @@ function keyValueMatch(obj1, obj2) {
   var keys2 = Object.keys(obj2);
 
   var i = 0; // && (i < keys1.length - 1 || i < keys2.length - 1) <- might need as condition for while loop
-  while (keyMatch(keys1, keys2, i) || i == 0) {
-    i = keyMatch(keys1, keys2, i);
+  while (keyMatch(keys1, keys2) || i == 0) {
+    i = keyMatch(keys1, keys2);
     var key1 = null;
     var key2 = null;
 
@@ -71,19 +71,18 @@ function keyValueMatch(obj1, obj2) {
 }
 
 
-//Function finds an element/value match between two arrays. Returns index of first match, starting from optional index int.
-function keyMatch(array1, array2, int) { 
-  int = int || 0
-
+//Function finds a value match between two (key) arrays. 
+//Searches through longer array input and returns index of first match
+function keyMatch(array1, array2) {
   if (array1.length >= array2.length) {
     for (var i = 0; i < array1.length; i++) {
-      if (array2.includes(array1[i], int)) {
+      if (array2.includes(array1[i])) {
         return i;
       }
     }
   } else if (array2.length > array1.length) {
     for (var i = 0; i < array2.length; i++) {
-      if (array1.includes(array2[i], int)) {
+      if (array1.includes(array2[i])) {
         return i;
       }
     }
@@ -106,7 +105,7 @@ function keyMatchValue (array1, array2) {
 var obj1 = {name: "Steven", age: 54, weight: 100};
 var obj2 = {name: "Tamir", age: 54, weight: 120 };
 var ex1 = {animal: "Dog", legs: 4, color: "white", condition: "OK", age: 4};
-var ex2 = {animal: "Cat", legs: 3, 'age': 4, condition: "OK"};
+var ex2 = {animal: "Cat", legs: 3, 'age': 4, condition: "Good"};
 
 var keys1 = Object.keys(ex1);
 var keys2 = Object.keys(ex2);
