@@ -54,3 +54,36 @@ car2.windshieldWipers();
 
 var car3 = new Car("Camry", "Green", 16);
 console.log(car3.color);
+
+
+//declaring an object through literal construction
+var motorcycle = {
+  condition: "good",
+  color: "silver",
+  gasMileage: 10,
+  speed: 0,
+  isMoving: false,
+    speedStatus: function() {
+      if (!this.isMoving) {
+        console.log("Vehicle is currently stopped.");
+      } else if (this.isMoving && this.speed != 0) {
+        console.log("Your current speed is: " + this.speed + " mph.");
+      }
+    }
+};
+
+motorcycle.speedStatus();
+motorcycle.isMoving = true;
+motorcycle.speed = 20;
+motorcycle.speedStatus();
+
+motorcycle.slowDown = function() {
+  if (this.speed >= 80) {
+    this.speed -= 20;
+    console.log("You're going too fast! Your adjusted speed is: " + this.speed + " mph.");
+  }
+};
+
+motorcycle.speed = 85;
+motorcycle.speedStatus();
+motorcycle.slowDown();
