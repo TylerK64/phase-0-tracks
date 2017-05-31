@@ -30,10 +30,12 @@ console.log(longestWord(arr2));
 //write a function that takes two objects (input)
 //checks if two objects share a key-value pair (condition)
 //use Object.keys(objectInput) to find list of keys for each object inputted
-//write function that compares two arrays to see if there is a match
+//write function that checks an array to see if there is an element equal to a value/object; use array.includes()
+//    !!want to compare entirety of two 'keys' arrays such that ALL key matches are found!!
 //compare two keys arrays, if there is a key match -> check values to see if they are equal
 //returns true if values (and keys) are equal or false if no key-value pairs are found (output)
 
+/*
 function keyValueMatch(obj1, obj2) {  
   var keys1 = Object.keys(obj1);
   var keys2 = Object.keys(obj2);
@@ -50,21 +52,40 @@ function keyValueMatch(obj1, obj2) {
   }
   return false;
 }
+*/
 
-function keyMatch(arr1, arr2) {
-  var i = 0;
-  while (i < arr1.length || i < arr2.length) {
-    
-    i += 1;
+//Function finds an element/value match between two arrays. Returns index of first match, starting from optional index.
+function keyMatch(array1, array2, int) { 
+  int = int || 0
+
+  if (array1.length >= array2.length) {
+    for (var i = 0; i < array1.length; i++) {
+      if (array2.includes(array1[i], int)) {
+        return i;
+      }
+    }
+  } else if (array2.length > array1.length) {
+    for (var i = 0; i < array2.length; i++) {
+      if (array1.includes(array2[i], int)) {
+        return i;
+      }
+    }
   }
+  return false;
 }
+
 
 var obj1 = {name: "Steven", age: 54, weight: 100};
 var obj2 = {name: "Tamir", age: 54, weight: 120 };
 var ex1 = {animal: "Dog", legs: 4, color: "white", condition: "OK", age: 4};
 var ex2 = {animal: "Cat", legs: 3, 'age': 4};
 
-console.log(keyValueMatch(ex1, ex2));
+var keys1 = Object.keys(ex1);
+var keys2 = Object.keys(ex2);
+
+console.log(keyMatch(keys2, keys1, 2));
+
+//console.log(keyValueMatch(ex1, ex2));
 
 
 //Release 2: Generate random test data
