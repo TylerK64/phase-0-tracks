@@ -1,8 +1,6 @@
 var names = ["Ed", "Bob", "Tony", "Spike"];
 var colors = ["blue", "red", "green", "yellow"];
 
-
-
 //Release 1: build an object that takes two arrays and stores each as 'property, value' pair in object
 //function assumes arr1 is the array of names & arr2 is the array of colors
 
@@ -33,3 +31,26 @@ console.log(list);
 
 //Release 2: Building objects using a constructor function
 //Build car object with properties of various data types & at least one function
+function Car (model, color, gasMileage) {
+  console.log("Initiailizing car:", this);
+
+  this.model = model;
+  this.color = color;
+  this.gasMileage = gasMileage;
+
+  this.honk = function () { console.log("Honk!"); };
+
+  console.log("Car initialization complete.");
+}
+
+Car.prototype.windshieldWipers = function() {console.log("Windshield wipers on.")};
+
+var car1 = new Car("Beetle", "Blue", 15);
+car1.honk();
+console.log(car1.model);
+
+var car2 = new Car("Ferrari", "Red", 12);
+car2.windshieldWipers();
+
+var car3 = new Car("Camry", "Green", 16);
+console.log(car3.color);
