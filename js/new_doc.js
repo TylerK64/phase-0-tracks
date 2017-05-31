@@ -3,8 +3,8 @@ function add(x, y) {
 }
 
 function addThenMult (x, y) {
-  var a = add(x,y);
-  return a * x * y;
+  x = add(x,y);
+  return x * y;
 }
 
-console.log(addThenMult(1, 2));
+console.log(addThenMult(3, 2));

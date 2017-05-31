@@ -35,26 +35,37 @@ console.log(longestWord(arr2));
 //compare two keys arrays, if there is a key match -> check values to see if they are equal
 //returns true if values (and keys) are equal or false if no key-value pairs are found (output)
 
-/*
+
 function keyValueMatch(obj1, obj2) {  
   var keys1 = Object.keys(obj1);
   var keys2 = Object.keys(obj2);
 
+  var i = 0; //need to update value of i to iterate such that all potential match values are considered
+  while (keyMatch(keys1, keys2, i) != false) {
+    i = keyMatch(keys1, keys2, i);
+    var key1 = null;
+    var key2 = null;
 
-  for (var i = 0; i < keys1.length || i < keys2.length; i++) {
-    var key1 = keys1[i];
-    var key2 = keys2[i];
-    if (key1 == key2) {
+    if (keys1.length >= keys2.length) {
+      key1 = keys1[i];
+      key2 = keys2.indexOf(key1);
       if (obj1[key1] === obj2[key2]) {
         return true;
       }
+    } else if (keys2.length > keys1.length) {
+      key2 = keys2[i];
+      key1 = keys1.indexOf(key2);
+      if (obj2[key2] === obj1[key1]) {
+        return true;
+      }
     }
+    i = keyMatch(keys1, keys2, i);
   }
   return false;
 }
-*/
 
-//Function finds an element/value match between two arrays. Returns index of first match, starting from optional index.
+
+//Function finds an element/value match between two arrays. Returns index of first match, starting from optional index int.
 function keyMatch(array1, array2, int) { 
   int = int || 0
 
@@ -74,7 +85,6 @@ function keyMatch(array1, array2, int) {
   return false;
 }
 
-
 var obj1 = {name: "Steven", age: 54, weight: 100};
 var obj2 = {name: "Tamir", age: 54, weight: 120 };
 var ex1 = {animal: "Dog", legs: 4, color: "white", condition: "OK", age: 4};
@@ -83,7 +93,8 @@ var ex2 = {animal: "Cat", legs: 3, 'age': 4};
 var keys1 = Object.keys(ex1);
 var keys2 = Object.keys(ex2);
 
-console.log(keyMatch(keys2, keys1, 2));
+//console.log(keyMatch(keys2, keys1, 2));
+console.log(keyValueMatch(ex1, ex2));
 
 //console.log(keyValueMatch(ex1, ex2));
 
