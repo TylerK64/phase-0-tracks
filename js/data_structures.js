@@ -11,15 +11,15 @@ var horses = function (arr1, arr2) {
   }
 
   for (var i = 0; i < arr1.length; i++) {
-    var color = arr1[i];
-    list[color] = "";
+    var key = arr1[i];
+    list[key] = "";
   }
 
   for (var i = 0; i < arr2.length; i++) {
-    var name = arr2[i];
-    var color = arr1[i];
-    if (list.hasOwnProperty(color)) {
-      list[color] = name;
+    var value = arr2[i];
+    var key = arr1[i];
+    if (list.hasOwnProperty(key)) {
+      list[key] = value;
     }
   }
   return list;
