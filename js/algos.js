@@ -41,8 +41,8 @@ function keyValueMatch(obj1, obj2) {
   var keys2 = Object.keys(obj2);
 
   var i = 0; // && (i < keys1.length - 1 || i < keys2.length - 1) <- might need as condition for while loop
-  while (keyMatch(keys1, keys2) || i == 0) {
-    i = keyMatch(keys1, keys2);
+  while (keyMatch(keys1, keys2, i) || i == 0) {
+    //i = keyMatch(keys1, keys2, i);
     var key1 = null;
     var key2 = null;
 
@@ -72,17 +72,21 @@ function keyValueMatch(obj1, obj2) {
 
 
 //Function finds a value match between two (key) arrays. 
-//Searches through longer array input and returns index of first match
-function keyMatch(array1, array2) {
+//Searches through longer array input and returns index of first match, starting at optional index int.
+function keyMatch(array1, array2, int) {
+  int = int || 0
+
   if (array1.length >= array2.length) {
-    for (var i = 0; i < array1.length; i++) {
-      if (array2.includes(array1[i])) {
+    for (var i = 0; i < array2.length; i++) {
+      if (array1.includes(array2[i], int)) {
+        console.log("Matching key at array2 index: " + i);
         return i;
       }
     }
   } else if (array2.length > array1.length) {
-    for (var i = 0; i < array2.length; i++) {
-      if (array1.includes(array2[i])) {
+    for (var i = 0; i < array1.length; i++) {
+      if (array2.includes(array1[i], int)) {
+        console.log("Matching key at array1 index: " + i);
         return i;
       }
     }
@@ -105,7 +109,7 @@ function keyMatchValue (array1, array2) {
 var obj1 = {name: "Steven", age: 54, weight: 100};
 var obj2 = {name: "Tamir", age: 54, weight: 120 };
 var ex1 = {animal: "Dog", legs: 4, color: "white", condition: "OK", age: 4};
-var ex2 = {animal: "Cat", legs: 3, 'age': 4, condition: "Good"};
+var ex2 = {animal: "Cat", legs: 3, 'age': 4, condition: "Good", color: "white"};
 
 var keys1 = Object.keys(ex1);
 var keys2 = Object.keys(ex2);
