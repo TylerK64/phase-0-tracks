@@ -30,44 +30,32 @@ console.log(longestWord(arr2));
 //Release 1: Find a key-value match
 //write a function that takes two objects (input)
 //checks if two objects share a key-value pair (condition)
-//use Object.keys(objectInput) to find list of keys for each object inputted
+//use Object.keys(objectVar) to find list of keys for each object inputted
 //write function that checks an array to see if there is an element equal to a value/object; use array.includes()
 //consider making function to find # of matching keys between two arrays, so main function can iterate a specific number of times (did not implement)  
 //compare two keys arrays, if there is a key match -> check values to see if they are equal
 //returns true if values (and keys) are equal or false if no key-value pairs are found (output)
 
 function keyValueMatch(obj1, obj2) {
-  var keys1 = Object.keys(obj1);
-  var keys2 = Object.keys(obj2);
+  var keys1 = [];
+  var keys2 = [];
+  var values1 = [];
+  var values2 = [];
 
-  var i = 0; // && (i < keys1.length - 1 || i < keys2.length - 1) <- might need as condition for while loop
-  while (keyMatch(keys1, keys2, i) || i == 0) {
-    //i = keyMatch(keys1, keys2, i);
-    var key1 = null;
-    var key2 = null;
-
-    if (keys1.length >= keys2.length) {
-      key2 = keys2[i];
-      var key1Index = keys1.indexOf(key2);
-      key1 = keys1[key1Index];
-      if (obj1[key1] === obj2[key2]) {
-        console.log("Matching key, value pair is: '" + key1 + ", " + obj1[key1] + "' at index " + key1Index);
-        return true;
-      }
-    } else if (keys2.length > keys1.length) {
-      key2 = keys2[i];
-      var key1Index = keys1.indexOf(key2);
-      key1 = keys1[key1Index];
-      if (obj2[key2] === obj1[key1]) {
-        console.log("Matching key, value pair is: '" + key2 + ", " + obj2[key2] + "' at index " + key1Index);
-        return true;
-      }
-    }
-    if (i < keys1.length || i < keys2.length) {
-      i += 1;
+  for (var key in obj1) {
+    if (obj1.hasOwnProperty(key)) {
+      keys1.push(key);
+      values1.push(obj1[key]);
     }
   }
-  return false;
+  for (var key in obj2) {
+    if (obj2.hasOwnProperty(key)) {
+      keys2.push(key);
+      values2.push(obj2[key]);
+    }
+  }
+  console.log(keys1, values1);
+  console.log(keys2, values2);
 }
 
 
@@ -121,8 +109,8 @@ var key2 = keys2[key2Index];
 console.log("This is key2: " + key2);
 */
 
-console.log(keyMatch(keys2, keys1, 1));
-console.log(keyValueMatch(ex1, ex2));
+//console.log(keyMatch(keys2, keys1, 1));
+keyValueMatch(ex1, ex2);
 
 //console.log(keyValueMatch(ex1, ex2));
 
