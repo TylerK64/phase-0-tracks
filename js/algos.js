@@ -47,11 +47,11 @@ function keyValueMatch(obj1, obj2) {
     var key2 = null;
 
     if (keys1.length >= keys2.length) {
-      key1 = keys1[i];
-      var key2Index = keys2.indexOf(key1);
-      key2 = keys2[key2Index];
+      key2 = keys2[i];
+      var key1Index = keys1.indexOf(key2);
+      key1 = keys1[key1Index];
       if (obj1[key1] === obj2[key2]) {
-        console.log("Matching key, value pair is: '" + key1 + ", " + obj1[key1] + "' at index " + key2Index);
+        console.log("Matching key, value pair is: '" + key1 + ", " + obj1[key1] + "' at index " + key1Index);
         return true;
       }
     } else if (keys2.length > keys1.length) {
@@ -94,7 +94,6 @@ function keyMatch(array1, array2, int) {
   return false;
 }
 
-
 //finding the precise number of key matches between two arrays
 /*
 function keyMatchValue (array1, array2) {
@@ -109,7 +108,8 @@ function keyMatchValue (array1, array2) {
 var obj1 = {name: "Steven", age: 54, weight: 100};
 var obj2 = {name: "Tamir", age: 54, weight: 120 };
 var ex1 = {animal: "Dog", legs: 4, color: "white", condition: "OK", age: 4};
-var ex2 = {animal: "Cat", legs: 3, 'age': 4, condition: "Good", color: "white"};
+var ex2 = {animal: "Cat", leg: 3, 'ages': 4, condition: "Good", color: "white"};
+var ex3 = {condition: "Good", color: "grey"};
 
 var keys1 = Object.keys(ex1);
 var keys2 = Object.keys(ex2);
@@ -121,7 +121,7 @@ var key2 = keys2[key2Index];
 console.log("This is key2: " + key2);
 */
 
-console.log(keyMatch(keys2, keys1, 0));
+console.log(keyMatch(keys2, keys1, 1));
 console.log(keyValueMatch(ex1, ex2));
 
 //console.log(keyValueMatch(ex1, ex2));
