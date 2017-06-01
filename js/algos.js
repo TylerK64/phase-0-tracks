@@ -94,10 +94,55 @@ function compareKeys(array1, array2) {
   return false;
 }
 
-//var keys1 = Object.keys(ex1);
-//var keys2 = Object.keys(ex2);
 
-//console.log(keys1, keys2, values1, values2);
+
+//Second (technically third) Implentation
+//Very less robust/kinda cheaterish version
+//Assumes all keys have values and at each obj has at least one key-value pair
+function keyValueMatch (obj1, obj2) {
+  var keyValuePairs1 = [];
+  var keyValuePairs2 = [];
+
+  for (var key in obj1) {
+    if (obj1.hasOwnProperty(key)) {
+      var value = obj1[key];
+      keyValuePairs1.push(key, value);
+    }
+  }
+  for (var key in obj2) {
+    if (obj2.hasOwnProperty(key)) {
+      var value = obj2[key];
+      keyValuePairs2.push(key, value);
+    }
+  }
+
+  for (var i = 0; i < keyValuePairs1.length - 1 && i < keyValuePairs2.length - 1; i++) {
+    if (keyValuePairs1.length >= keyValuePairs2.length) {
+      if (keyValuePairs1.includes(keyValuePairs2[i])) {
+        var key2 = keyValuePairs2[i];
+        var index1 = keyValuePairs1.indexOf(key2);
+        if (keyValuePairs1[index1+1] == keyValuePairs2[i+1]) {
+          console.log("The matching key is: " + key2 + ", value is: " + keyValuePairs2[i+1] + " at array2 index: " + i);
+          return true;
+        }
+      }
+    } else if (keyValuePairs2.length > keyValuePairs1.length) {
+      if (keyValuePairs2.includes(keyValuePairs1[i])) {
+        var key1 = keyValuePairs1[i];
+        var index2 = keyValuePairs2.indexOf(key1);
+        if (keyValuePairs2[index2+1] == keyValuePairs1[i+1]) {
+          console.log("The matching key is: " + key1 + ", value is: " + keyValuePairs1[i+1] + " at array1 index: " + i);
+          return true;
+        }
+      }
+    }
+  }
+}
+
+var ex1 = {animal: "Dog", leg: 4, color: "white", condition: "OK", age: 4};
+var ex2 = {animal: "Cat", leg: 3, 'age': 4, condition: "Good", color: "white", status: "great"};
+
+console.log(keyValueMatch(ex1, ex2));
 
 //while (compareKeys(keys1, keys2)) {
 //  console.log(compareKeys(keys1, keys2));
@@ -111,3 +156,4 @@ function compareKeys(array1, array2) {
 //solution: write function that creates a string of random chars, with random length between 1 and 10
 //loop function for integer/input times
 //output an array
+
