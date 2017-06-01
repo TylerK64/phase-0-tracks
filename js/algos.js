@@ -75,7 +75,7 @@ function keyValueArrays(obj1, obj2) {
 keyValueArrays(ex1, ex2);
 var keys1Copy = keys1.slice();
 var keys2Copy = keys2.slice();
-console.log(keys1Copy);
+//console.log(keys1Copy);
 
 function compareKeys(array1, array2) {
   if (array1.length >= array2.length) {
@@ -94,24 +94,15 @@ function compareKeys(array1, array2) {
   return false;
 }
 
-
-
 //var keys1 = Object.keys(ex1);
 //var keys2 = Object.keys(ex2);
 
-
 //console.log(keys1, keys2, values1, values2);
 
-while (compareKeys(keys1, keys2)) {
-  console.log(compareKeys(keys1, keys2));
-}
+//while (compareKeys(keys1, keys2)) {
+//  console.log(compareKeys(keys1, keys2));
+//}
 
-
-var x1 = ['animal'];
-var x2 = ['animal'];
-if (x1[0] == x2[0]) {
-  console.log("they're equal");
-}
 
 //Release 2: Generate random test data
 //input: function takes integer
