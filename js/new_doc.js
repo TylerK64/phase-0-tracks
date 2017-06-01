@@ -44,9 +44,9 @@ function keyMatch(array1, array2, int) {
   int = int || 0
 
   if (array1.length >= array2.length) {
-    for (var i = 0; i < array2.length; i++) {
-      if (array1.includes(array2[i], int)) {
-        console.log("Matching key: " + array2[i] + " at iteration step: " + i);
+    for (var i = 0; i < array1.length; i++) {
+      if (array2.includes(array1[i], int)) {    //need some kind of while/conditional loop for .includes?; either get condition twice, or color twice. need to fix loop logic.
+        console.log("Matching key: " + array1[i] + " at iteration step: " + i);
         return i;
       }
     }
@@ -63,8 +63,8 @@ function keyMatch(array1, array2, int) {
 
 var obj1 = {name: "Steven", age: 54, weight: 100};
 var obj2 = {name: "Tamir", age: 54, weight: 120 };
-var ex1 = {animal: "Dog", leg: 4, color: "white", condition: "OK", age: 4}; //code doesn't work if 'age' = 'ages', fix loops above
-var ex2 = {animal: "Cat", leg: 3, condition: "Good", color: "white"};
+var ex1 = {animal: "Dog", leg: 4, color: "white", condition: "OK", age: 4}; //code doesn't work if 'age' = 'ages'
+var ex2 = {animal: "Cat", leg: 3, condition: "Good", color: "white"}; //condition gets verified twice, see output
 var ex3 = {condition: "Good", color: "grey"};
 
 var keys1 = Object.keys(ex1);
