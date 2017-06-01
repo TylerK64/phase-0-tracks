@@ -51,6 +51,12 @@ var keys2 = [];
 var values1 = [];
 var values2 = [];
 
+var obj1 = {name: "Steven", age: 54, weight: 100};
+var obj2 = {name: "Tamir", age: 54, weight: 120 };
+var ex1 = {animal: "Dog", leg: 4, color: "white", condition: "OK", age: 4};
+var ex2 = {animal: "Cat", leg: 3, 'age': 4, condition: "Good", color: "white"};
+var ex3 = {condition: "Good", color: "grey"};
+
 function keyValueArrays(obj1, obj2) {
   for (var key in obj1) {
     if (obj1.hasOwnProperty(key)) {
@@ -66,21 +72,22 @@ function keyValueArrays(obj1, obj2) {
   }
 }
 
-function compareKeys(array1, array2) {
-  var array1Copy = array1.slice();
-  var array2Copy = array2.slice();
+keyValueArrays(ex1, ex2);
+var keys1Copy = keys1.slice();
+var keys2Copy = keys2.slice();
+console.log(keys1Copy);
 
+function compareKeys(array1, array2) {
   if (array1.length >= array2.length) {
-    for (var i = 0; i < array1Copy.length; i++) {
-      if (array2Copy.includes(array1Copy[i])) {
-        console.log("test");
-        return array1Copy.splice(i, 1);
+    for (var i = 0; i < keys1Copy.length; i++) {
+      if (array2.includes(keys1Copy[i])) {
+        return keys1Copy.splice(i, 1);
       }
     }
   } else if (array2.length > array1.length) {
-    for (var i = 0; i < array2Copy.length; i++) {
-      if (array2Copy.includes(array1Copy[i])) {
-        return array2Copy.splice(i, 1);
+    for (var i = 0; i < keys2Copy.length; i++) {
+      if (array1.includes(keys2Copy[i])) {
+        return keys2Copy.splice(i, 1);
       }
     }
   }
@@ -88,21 +95,23 @@ function compareKeys(array1, array2) {
 }
 
 
-var obj1 = {name: "Steven", age: 54, weight: 100};
-var obj2 = {name: "Tamir", age: 54, weight: 120 };
-var ex1 = {animal: "Dog", legs: 4, color: "white", condition: "OK", age: 4};
-var ex2 = {animal: "Cat", leg: 3, 'ages': 4, condition: "Good", color: "white"};
-var ex3 = {condition: "Good", color: "grey"};
 
 //var keys1 = Object.keys(ex1);
 //var keys2 = Object.keys(ex2);
 
-keyValueArrays(ex1, ex2);
+
 //console.log(keys1, keys2, values1, values2);
-var a = compareKeys(keys1, keys2);
-console.log(a);
+
+while (compareKeys(keys1, keys2)) {
+  console.log(compareKeys(keys1, keys2));
+}
 
 
+var x1 = ['animal'];
+var x2 = ['animal'];
+if (x1[0] == x2[0]) {
+  console.log("they're equal");
+}
 
 //Release 2: Generate random test data
 //input: function takes integer
