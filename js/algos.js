@@ -36,12 +36,21 @@ console.log(longestWord(arr2));
 //compare two keys arrays, if there is a key match -> check values to see if they are equal
 //returns true if values (and keys) are equal or false if no key-value pairs are found (output)
 
-function keyValueMatch(obj1, obj2) {
-  var keys1 = [];
-  var keys2 = [];
-  var values1 = [];
-  var values2 = [];
+//want to compare the values of two specific keys for two objects
+//(1) create four arrays, two for the keys & values of first object, two for the keys & values of second object
+//(2)write function that compares two key arrays, returning the key element whenever there is a match. 
+//Also create a copy of the arrays and splice the copies when a match is found to eliminate already matched keys
+//(3)make function that takes in keys and compares the key's value between two objects. returns true when there is a match.
+//iterate step (3) until step (2) returns false. also need to make exception for when a key element === 0
 
+//need to iterate over multiple key-value pairs
+
+var keys1 = [];
+var keys2 = [];
+var values1 = [];
+var values2 = [];
+
+function keyValueArrays(obj1, obj2) {
   for (var key in obj1) {
     if (obj1.hasOwnProperty(key)) {
       keys1.push(key);
@@ -54,44 +63,28 @@ function keyValueMatch(obj1, obj2) {
       values2.push(obj2[key]);
     }
   }
-  console.log(keys1, values1);
-  console.log(keys2, values2);
 }
 
-
-//Function finds a value match between two (key) arrays. 
-//Searches through longer array input and returns index of first match, starting at optional index int.
-function keyMatch(array1, array2, int) {
-  int = int || 0
+function compareKeys(array1, array2) {
+  var array1Copy = array1.slice();
+  var array2Copy = array2.slice();
 
   if (array1.length >= array2.length) {
-    for (var i = 0; i < array2.length; i++) {
-      if (array1.includes(array2[i], int)) {
-        console.log("Matching key at array2 index: " + i);
-        return i;
+    for (var i = 0; i < array1Copy.length; i++) {
+      if (array2Copy.includes(array1Copy[i])) {
+        return array1Copy.splice(i, 1);
       }
     }
   } else if (array2.length > array1.length) {
-    for (var i = 0; i < array1.length; i++) {
-      if (array2.includes(array1[i], int)) {
-        console.log("Matching key at array1 index: " + i);
-        return i;
+    for (var i = 0; i < array2Copy.length; i++) {
+      if (array2Copy.includes(array1Copy[i])) {
+        return array2Copy.splice(i, 1);
       }
     }
   }
   return false;
 }
 
-//finding the precise number of key matches between two arrays
-/*
-function keyMatchValue (array1, array2) {
-  var counter = 0;
-  if (keyMatch(array1, array2)) {
-    var index = keyMatch(array1, array2);
-    counter += 1;
-  }
-}
-*/
 
 var obj1 = {name: "Steven", age: 54, weight: 100};
 var obj2 = {name: "Tamir", age: 54, weight: 120 };
@@ -99,20 +92,12 @@ var ex1 = {animal: "Dog", legs: 4, color: "white", condition: "OK", age: 4};
 var ex2 = {animal: "Cat", leg: 3, 'ages': 4, condition: "Good", color: "white"};
 var ex3 = {condition: "Good", color: "grey"};
 
-var keys1 = Object.keys(ex1);
-var keys2 = Object.keys(ex2);
+//var keys1 = Object.keys(ex1);
+//var keys2 = Object.keys(ex2);
 
-/*
-var key1 = keys1[0];
-var key2Index = keys2.indexOf(key1);
-var key2 = keys2[key2Index];
-console.log("This is key2: " + key2);
-*/
+keyValueArrays(ex1, ex2);
+console.log(keys1, keys2, values1, values2);
 
-//console.log(keyMatch(keys2, keys1, 1));
-keyValueMatch(ex1, ex2);
-
-//console.log(keyValueMatch(ex1, ex2));
 
 
 //Release 2: Generate random test data
