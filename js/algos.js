@@ -3,18 +3,19 @@
 //set a test_string equal to first index of array, if array size is greater than zero
 //from index 1 until end of the array, if the length of the i-th index string is greater than (i-1)th string length, then test_string = string at ith index
 //return test_string
+//new longest word is only set when next string in the array is longer, ie words of same length do not overwrite longest word.
 
-function longestWord (arr) {
-  str = "";
-  if (arr.length > 0) {
-    var str = arr[0];
+function longestWord(arr) {
+  var str = "";
+  if (arr.length === 0) {
+    console.log("Sorry, try an array with some values.")
+  } else {
+    str = arr[0];
   }
-  for (var i = 1; i < arr.length; i++) {
-    if (arr[i].length > arr[i-1].length) {
+  for (var i = 0; i < arr.length; i++) {
+    if (str.length < arr[i].length) {
       str = arr[i]
     }
-    //else if (arr[i].length == arr[i-1.length]) 
-    //What to do if two lengths are equal?
   }
   return str;
 }
@@ -46,6 +47,7 @@ console.log(longestWord(arr2));
 //need to iterate over multiple key-value pairs
 
 //could return an object literal (containing arrays) for keyValueArrays instead of global variables
+/*
 var keys1 = [];
 var keys2 = [];
 var values1 = [];
@@ -75,7 +77,6 @@ function keyValueArrays(obj1, obj2) {
 keyValueArrays(ex1, ex2);
 var keys1Copy = keys1.slice();
 var keys2Copy = keys2.slice();
-//console.log(keys1Copy);
 
 function compareKeys(array1, array2) {
   if (array1.length >= array2.length) {
@@ -93,8 +94,7 @@ function compareKeys(array1, array2) {
   }
   return false;
 }
-
-
+*/
 
 //Second (technically third) Implentation
 //Very less robust/kinda cheaterish version
@@ -144,10 +144,6 @@ var ex2 = {animal: "Cat", leg: 3, 'age': 4, condition: "Good", color: "white", s
 
 console.log(keyValueMatch(ex1, ex2));
 
-//while (compareKeys(keys1, keys2)) {
-//  console.log(compareKeys(keys1, keys2));
-//}
-
 
 //Release 2: Generate random test data
 //input: function takes integer
@@ -157,3 +153,31 @@ console.log(keyValueMatch(ex1, ex2));
 //loop function for integer/input times
 //output an array
 
+function randomData(int) {
+  arr = [];
+  for (var i = 0; i < int; i++) {
+    arr.push(randomString());
+  }
+  return arr;
+}
+
+function randomNumber() {
+  return Math.floor((Math.random() * 10) + 1);
+}
+
+function randomString() {
+  var outputString = "";
+  var alphabet = "abcdefghijklmnopqrstuvwxyz";
+  var x = randomNumber();
+  while (outputString.length < x) {
+    outputString += alphabet[Math.floor(Math.random() * alphabet.length)];
+  }
+  return outputString;
+}
+
+for (var i = 0; i < 10; i++) {
+  var data = randomData(10);
+  console.log("Here is a list of random strings: ", data);
+  var word = longestWord(data);
+  console.log("The longest word for this array is: " + word);
+}
