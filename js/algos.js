@@ -47,7 +47,7 @@ console.log(longestWord(arr2));
 //need to iterate over multiple key-value pairs
 
 //could return an object literal (containing arrays) for keyValueArrays instead of global variables
-/*
+
 var keys1 = [];
 var keys2 = [];
 var values1 = [];
@@ -74,6 +74,26 @@ function keyValueArrays(obj1, obj2) {
   }
 }
 
+function findKeyMatches (array1, array2) {
+  var matches = [];
+  if (array1.length >= array2.length) {
+    for (var i = 0; i < array2.length; i++) {
+      if (array1.includes(array2[i])) {
+        matches.push(array2[i]);
+      }
+    }
+  } else if (array2.length > array1.length) {
+    for (var i = 0; i < array1.length; i++) {
+      if (array2.includes(array1[i])) {
+        matches.push(array1[i]);
+      }
+    }
+  }
+  return matches;
+}
+
+
+/*
 keyValueArrays(ex1, ex2);
 var keys1Copy = keys1.slice();
 var keys2Copy = keys2.slice();
