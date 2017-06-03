@@ -45,9 +45,6 @@ console.log(longestWord(arr2));
 //iterate step (3) until step (2) returns false. also need to make exception for when a key element === 0
 
 //need to iterate over multiple key-value pairs
-
-//could return an object literal (containing arrays) for keyValueArrays instead of global variables
-
 var keys1 = [];
 var keys2 = [];
 var values1 = [];
@@ -59,6 +56,8 @@ var ex1 = {animal: "Dog", leg: 4, color: "white", condition: "OK", age: 4};
 var ex2 = {animal: "Cat", leg: 3, 'age': 4, condition: "Good", color: "white"};
 var ex3 = {condition: "Good", color: "grey"};
 
+//could separate function to return each key array separately and create new function to return each value array
+//but since keys1 and keys2 and used often throughout program, allowing them to be global variables is easier for access purposes
 function keyValueArrays(obj1, obj2) {
   for (var key in obj1) {
     if (obj1.hasOwnProperty(key)) {
@@ -90,6 +89,20 @@ function findKeyMatches (array1, array2) {
     }
   }
   return matches;
+}
+
+//find if there are any value matches based on key arrays
+function findValueMatches () {
+  var matches = [];
+  matches = findKeyMatches(keys1, keys2);
+
+  for (var i = 0; i < matches.length; i++) {
+    if (values1.includes(matches[i]) && values2.includes(matches[i])) {
+  
+    }
+  }
+
+
 }
 
 
