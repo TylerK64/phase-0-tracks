@@ -45,15 +45,15 @@ console.log(longestWord(arr2));
 //iterate step (3) until step (2) returns false. also need to make exception for when a key element === 0
 
 //need to iterate over multiple key-value pairs
+var keysValues1 = [];
+var keysValues2 = [];
 var keys1 = [];
 var keys2 = [];
-var values1 = [];
-var values2 = [];
 
 var obj1 = {name: "Steven", age: 54, weight: 100};
 var obj2 = {name: "Tamir", age: 54, weight: 120 };
 var ex1 = {animal: "Dog", leg: 4, color: "white", condition: "OK", age: 4};
-var ex2 = {animal: "Cat", leg: 3, 'age': 4, condition: "Good", color: "white"};
+var ex2 = {animal: "Cat", leg: 3, 'age': 4, condition: "Good", property: "exists", color: "white"};
 var ex3 = {condition: "Good", color: "grey"};
 
 //could separate function to return each key array separately and create new function to return each value array
@@ -62,35 +62,73 @@ function keyValueArrays(obj1, obj2) {
   for (var key in obj1) {
     if (obj1.hasOwnProperty(key)) {
       keys1.push(key);
-      values1.push(obj1[key]);
+      keysValues1.push([key, obj1[key]]);
     }
   }
   for (var key in obj2) {
     if (obj2.hasOwnProperty(key)) {
       keys2.push(key);
-      values2.push(obj2[key]);
+      keysValues2.push([key, obj2[key]]);
     }
   }
 }
 
-function findKeyMatches (array1, array2) {
-  var matches = [];
-  if (array1.length >= array2.length) {
-    for (var i = 0; i < array2.length; i++) {
-      if (array1.includes(array2[i])) {
-        matches.push(array2[i]);
+function findKeyMatches (keysValues1, keysValues2, keys1, keys2) {
+  var keyMatches = [];
+  if (keysValues1.length >= keysValues2.length) {
+    for (var i = 0; i < keysValues2.length; i++) {
+      if (keys1.includes(keysValues2[i][0])) {
+        keyMatches.push(keysValues2[i]);
       }
     }
-  } else if (array2.length > array1.length) {
-    for (var i = 0; i < array1.length; i++) {
-      if (array2.includes(array1[i])) {
-        matches.push(array1[i]);
+  } else if (keysValues2.length > keysValues1.length) {
+    for (var i = 0; i < keysValues1.length; i++) {
+      if (keys2.includes(keysValues1[i][0])) {
+        keyMatches.push(keysValues1[i]);
       }
     }
   }
-  return matches;
+  return keyMatches;
 }
 
+function checkKeyValues (keysValues1, keysValues2, keyMatches) {
+  if (keysValues1.length >= keysValues2.length) {
+    for (var i = 0; i < keysValues1.length; i++) {
+      for (var j = 0; j < keyMatches.length; j++) {
+        if (keyMatches[j][0] == keysValues1[i][0] && keyMatches[j][1] == keysValues1[i][1]) {
+          console.log("Matching key is: " + keyMatches[j][0] + " matching value is: " + keyMatches[j][1])
+          return true;
+        }
+      }
+    }
+  } else if (keysValues2.length > keysValues1.length) {
+    for (var i = 0; i < keysValues2.length; i++) {
+      for (var j = 0; j < keyMatches.length; j++) {
+        if (keyMatches[j][0] == keysValues2[i][0] && keyMatches[j][1] == keysValues2[i][1]) {
+          console.log("Matching key is: " + keyMatches[j][0] + " matching value is: " + keyMatches[j][1])
+          return true;
+        }
+      }
+    }
+  }
+  return false;
+}
+
+keyValueArrays(ex1, ex2);
+console.log(keys1);
+console.log(keys2);
+console.log(keysValues1);
+console.log(keysValues2);
+
+var matches = [];
+matches = findKeyMatches(keysValues1, keysValues2, keys1, keys2);
+console.log("these are the matches: " + matches);
+
+var x = null;
+x = checkKeyValues(keysValues1, keysValues2, matches);
+console.log(x);
+
+/*
 //find if there are any value matches based on key arrays
 function findValueMatches () {
   var matches = [];
@@ -98,15 +136,12 @@ function findValueMatches () {
 
   for (var i = 0; i < matches.length; i++) {
     if (values1.includes(matches[i]) && values2.includes(matches[i])) {
-  
     }
   }
-
-
 }
 
 
-/*
+
 keyValueArrays(ex1, ex2);
 var keys1Copy = keys1.slice();
 var keys2Copy = keys2.slice();
@@ -208,9 +243,11 @@ function randomString() {
   return outputString;
 }
 
+/*
 for (var i = 0; i < 10; i++) {
   var data = randomData(10);
   console.log("Here is a list of random strings: ", data);
   var word = longestWord(data);
   console.log("The longest word for this array is: " + word);
 }
+*/
