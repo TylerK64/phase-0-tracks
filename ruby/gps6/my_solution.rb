@@ -91,11 +91,13 @@ alaska.virus_effects
 The second subset of hash data (the value of each state key) is declared using 'syntactical sugar,' or a shorthand method ruby uses for simpler syntax. Instead of writing out the key and values as strings, the key-value pair can simply be declared in the following format: "key: value"
 Additionally, the second shorthand method of declaring key-value pairs requires that when referencing the values of each (subset) key, a special notation must be used, like so: 'hash_name[:key1][:subset_key2]'. Alternatively when string notation is used to declare the hash keys, the normal way of accessing the value would look like: 'hash_name["key1_name"]["key2_name"]'.
 
-2) 
+2) 'require_relative' is a subset of 'require' and the main difference is that require_relative loads files from directories relative to where the program resides, while require can only use the current directory in which you are running the program.
+Another way to think about it is that proper implementation of require can only be declared in a couple ways: 'require ./file.rb' or 'require file.rb', whereas require_relative can point to any filepath so long as the directory points to an existing file.
 
-3)
+3) The most common methods of iterating through a hash in ruby are using the #each and #map hash methods. Using these methods with an enumerator, with the key & value pair as the two pipe variables, allows for easy access to the main parameter values of each hash.
+While it is also possible to use other methods, such as a for, while, or until loop, these methods are slightly more involved and generally aren't preferred unless there is a specific reason for their implementation.
 
-4)
+4) 
 
 5)
 
