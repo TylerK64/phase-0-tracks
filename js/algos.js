@@ -20,12 +20,10 @@ function longestWord(arr) {
   return str;
 }
 
-/*
 var arr1 = ["long phrase","longest phrase","longer phrase"];
 var arr2 = ["pear", "apple", "banana", "watermelon", "blueberry"];
 console.log(longestWord(arr1));
 console.log(longestWord(arr2));
-*/
 
 
 //Release 1: Find a key-value match
@@ -43,62 +41,111 @@ console.log(longestWord(arr2));
 //Also create a copy of the arrays and splice the copies when a match is found to eliminate already matched keys
 //(3)make function that takes in keys and compares the key's value between two objects. returns true when there is a match.
 //iterate step (3) until step (2) returns false. also need to make exception for when a key element === 0
-
 //need to iterate over multiple key-value pairs
 
-//could return an object literal (containing arrays) for keyValueArrays instead of global variables
-/*
-var keys1 = [];
-var keys2 = [];
-var values1 = [];
-var values2 = [];
+function keyValueCompare(obj1, obj2) {
+  var keysValues1 = [];
+  var keysValues2 = [];
+  var keys1 = [];
+  var keys2 = [];
+  var keyMatches = [];
+  var verify = null;
 
-var obj1 = {name: "Steven", age: 54, weight: 100};
-var obj2 = {name: "Tamir", age: 54, weight: 120 };
-var ex1 = {animal: "Dog", leg: 4, color: "white", condition: "OK", age: 4};
-var ex2 = {animal: "Cat", leg: 3, 'age': 4, condition: "Good", color: "white"};
-var ex3 = {condition: "Good", color: "grey"};
-
-function keyValueArrays(obj1, obj2) {
   for (var key in obj1) {
     if (obj1.hasOwnProperty(key)) {
       keys1.push(key);
-      values1.push(obj1[key]);
+      keysValues1.push([key, obj1[key]]);
     }
   }
   for (var key in obj2) {
     if (obj2.hasOwnProperty(key)) {
       keys2.push(key);
-      values2.push(obj2[key]);
+      keysValues2.push([key, obj2[key]]);
     }
   }
+
+  keyMatches = findKeyMatches(keysValues1, keysValues2, keys1, keys2);
+  verify = checkKeyValues(keysValues1, keysValues2, keyMatches);
+  return verify;
 }
 
-keyValueArrays(ex1, ex2);
-var keys1Copy = keys1.slice();
-var keys2Copy = keys2.slice();
-
-function compareKeys(array1, array2) {
-  if (array1.length >= array2.length) {
-    for (var i = 0; i < keys1Copy.length; i++) {
-      if (array2.includes(keys1Copy[i])) {
-        return keys1Copy.splice(i, 1);
+function findKeyMatches (keysValues1, keysValues2, keys1, keys2) {
+  var keyMatches = [];
+  if (keysValues1.length >= keysValues2.length) {
+    for (var i = 0; i < keysValues2.length; i++) {
+      if (keys1.includes(keysValues2[i][0])) {
+        keyMatches.push(keysValues2[i]);
       }
     }
-  } else if (array2.length > array1.length) {
-    for (var i = 0; i < keys2Copy.length; i++) {
-      if (array1.includes(keys2Copy[i])) {
-        return keys2Copy.splice(i, 1);
+  } else if (keysValues2.length > keysValues1.length) {
+    for (var i = 0; i < keysValues1.length; i++) {
+      if (keys2.includes(keysValues1[i][0])) {
+        keyMatches.push(keysValues1[i]);
+      }
+    }
+  }
+  return keyMatches;
+}
+
+function checkKeyValues (keysValues1, keysValues2, keyMatches) {
+  if (keysValues1.length >= keysValues2.length) {
+    for (var i = 0; i < keysValues1.length; i++) {
+      for (var j = 0; j < keyMatches.length; j++) {
+        if (keyMatches[j][0] == keysValues1[i][0] && keyMatches[j][1] == keysValues1[i][1]) {
+          //console.log("Matching key is: " + keyMatches[j][0] + " matching value is: " + keyMatches[j][1])
+          return true;
+        }
+      }
+    }
+  } else if (keysValues2.length > keysValues1.length) {
+    for (var i = 0; i < keysValues2.length; i++) {
+      for (var j = 0; j < keyMatches.length; j++) {
+        if (keyMatches[j][0] == keysValues2[i][0] && keyMatches[j][1] == keysValues2[i][1]) {
+          //console.log("Matching key is: " + keyMatches[j][0] + " matching value is: " + keyMatches[j][1])
+          return true;
+        }
       }
     }
   }
   return false;
 }
+
+var obj1 = {name: "Steven", age: 54, weight: 100};
+var obj2 = {name: "Tamir", ages: 54, weight: 120};
+var ex1 = {animal: "Dog", leg: 4, color: "white", condition: "OK", age: 4, property: "exists"};
+var ex2 = {animal: "Cat", leg: 3, 'age': 4, condition: "Good", color: "white"};
+var ex3 = {condition: "Good", color: "grey"};
+
+/*
+keyValueCompare(ex1, ex2);
+console.log(keys1);
+console.log(keys2);
+console.log(keysValues1);
+console.log(keysValues2);
+
+var matches = [];
+matches = findKeyMatches(keysValues1, keysValues2, keys1, keys2);
+console.log("these are the matches: " + matches);
+
+var x = null;
+x = checkKeyValues(keysValues1, keysValues2, matches);
+console.log(x);
 */
 
-//Second (technically third) Implentation
-//Very less robust/kinda cheaterish version
+var x = null;
+x = keyValueCompare(ex1, ex2);
+console.log(x);
+x = keyValueCompare(ex2, ex3);
+console.log(x);
+x = keyValueCompare(ex1, ex3);
+console.log(x);
+x = keyValueCompare(obj1, obj2);
+console.log(x);
+
+
+//Second (technically third) Implentation - very less robust/kinda cheaterish version. can delete.
 //Assumes all keys have values and at each obj has at least one key-value pair
+/*
 function keyValueMatch (obj1, obj2) {
   var keyValuePairs1 = [];
   var keyValuePairs2 = [];
@@ -141,8 +188,8 @@ function keyValueMatch (obj1, obj2) {
 
 var ex1 = {animal: "Dog", leg: 4, color: "white", condition: "OK", age: 4};
 var ex2 = {animal: "Cat", leg: 3, 'age': 4, condition: "Good", color: "white", status: "great"};
-
 console.log(keyValueMatch(ex1, ex2));
+*/
 
 
 //Release 2: Generate random test data
