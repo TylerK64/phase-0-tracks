@@ -20,12 +20,10 @@ function longestWord(arr) {
   return str;
 }
 
-/*
 var arr1 = ["long phrase","longest phrase","longer phrase"];
 var arr2 = ["pear", "apple", "banana", "watermelon", "blueberry"];
 console.log(longestWord(arr1));
 console.log(longestWord(arr2));
-*/
 
 
 //Release 1: Find a key-value match
@@ -190,7 +188,6 @@ function keyValueMatch (obj1, obj2) {
 
 var ex1 = {animal: "Dog", leg: 4, color: "white", condition: "OK", age: 4};
 var ex2 = {animal: "Cat", leg: 3, 'age': 4, condition: "Good", color: "white", status: "great"};
-
 console.log(keyValueMatch(ex1, ex2));
 */
 
@@ -225,11 +222,9 @@ function randomString() {
   return outputString;
 }
 
-/*
 for (var i = 0; i < 10; i++) {
   var data = randomData(10);
   console.log("Here is a list of random strings: ", data);
   var word = longestWord(data);
   console.log("The longest word for this array is: " + word);
 }
-*/
