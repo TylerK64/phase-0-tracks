@@ -1,7 +1,7 @@
 # Virus Predictor
 
-# I worked on this challenge [by myself, with: ].
-# We spent [#] hours on this challenge.
+# I worked on this challenge [with: Eli Vickery].
+# We spent [2] hours on this challenge.
 
 # EXPLANATION OF require_relative
 #
@@ -85,3 +85,18 @@ alaska.virus_effects
 
 #=======================================================================
 # Reflection Section
+=begin
+
+1) The first subset of hash data (the key-value pair for each state) is the standard Ruby notation for declaring hashes. That is declaring the key on the left hand side of the statement (in "" or ''), then the '=>' symbol, then the data which contains the value of the key.
+The second subset of hash data (the value of each state key) is declared using 'syntactical sugar,' or a shorthand method ruby uses for simpler syntax. Instead of writing out the key and values as strings, the key-value pair can simply be declared in the following format: "key: value"
+Additionally, the second shorthand method of declaring key-value pairs requires that when referencing the values of each (subset) key, a special notation must be used, like so: 'hash_name[:key1][:subset_key2]'. Alternatively when string notation is used to declare the hash keys, the normal way of accessing the value would look like: 'hash_name["key1_name"]["key2_name"]'.
+
+2) 
+
+3)
+
+4)
+
+5)
+
+=end
