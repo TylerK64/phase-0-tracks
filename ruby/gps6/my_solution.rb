@@ -121,8 +121,12 @@ Another way to think about it is that proper implementation of require can only 
 3) The most common methods of iterating through a hash in ruby are using the #each and #map hash methods. Using these methods with an enumerator, with the key & value pair as the two pipe variables, allows for easy access to the main parameter values of each hash.
 While it is also possible to use other methods, such as a for, while, or until loop, these methods are slightly more involved and generally aren't preferred unless there is a specific reason for their implementation.
 
-4) 
+4) The most noticable part of each method in virus_effects is the multiple if/else if statements and how the code is trying to set variables based on certain conditions.
+Similarly, the fact that the same variables are used for both the if/else if statements and the returns of these if statements (in each method), it seems fairly obvious that this code is not nearly as DRY as it could be and some refactoring is possible.
+In the predicted_deaths method, noticing that the population factor multiplied by the population density (in the top four tiers) is equal to 50 was very crucial for refactoring the first method.
+In the speed_of_spread method, noticing the increments of 0.5 speed between each population density was necessary to refactoring this code. While we did take a bit to realize that we had to iterate backwards from 2.5 speed (rather than moving forward from 0), after coming to this understanding we were quickly able to make the code much simpler.
 
-5)
+5) Overall I'd say my comfortability with hashes improved a good amount during this challenge. Iterating and maniuplating hashes has never been a huge issue personally, but when faced with someone else's code and having to work backwards was an interesting perspective to have since syntax can vary even for data structures of the same type.
+I'd also say I enjoyed the challenges of refactoring the two methods since they required some thinking, but weren't too overly difficult. Noticing these sorts of patterns and relationships between certain variables or conditions seems like a particularly useful skill for writing cleaner, simpler, and more readable code.
 
 =end
