@@ -1,0 +1,45 @@
+<!-- Release 2: Execute SQL Queries -->
+
+(1)
+SELECT * FROM computers;
+id|model|ram|new_status|operating_system_id
+1|Dell XPS 15|4|true|1
+2|Macbook Pro|8|false|2
+3|Lenovo Thinkpad T470|16|true|3
+4|HP Spectre 13|8|false|1
+
+SELECT * FROM operating_systems;
+id|name
+1|Windows
+2|Mac OS
+3|Linux
+
+(2)
+UPDATE computers SET ram=16 WHERE model="Macbook Pro";
+
+(3)
+SELECT * FROM computers, operating_systems WHERE computers.operating_system_id = operating_systems.id;
+id|model|ram|new_status|operating_system_id|id|name
+1|Dell XPS 15|4|true|1|1|Windows
+2|Macbook Pro|16|false|2|2|Mac OS
+3|Lenovo Thinkpad T470|16|true|3|3|Linux
+4|HP Spectre 13|8|false|1|1|Windows
+
+(4)
+SELECT computers.model, operating_systems.name FROM computers JOIN operating_systems ON computers.operating_system_id = operating_systems.id;
+model|name
+Dell XPS 15|Windows
+Macbook Pro|Mac OS
+Lenovo Thinkpad T470|Linux
+HP Spectre 13|Windows
+
+(5)
+DELETE FROM computers WHERE model="HP Spectre 13";
+
+
+
+<!-- Release 3: Research on Your Own -->
+(1)
+The main different types of joins are: INNER JOIN, LEFT JOIN, RIGHT JOIN, and FULL JOIN.
+
+(2)
