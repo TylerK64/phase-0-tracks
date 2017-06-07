@@ -1,4 +1,4 @@
-<!-- Release 2: Execute SQL Queries -->
+<!--- Release 2: Execute SQL Queries --->
 
 (1)
 SELECT * FROM computers;
@@ -38,7 +38,8 @@ DELETE FROM computers WHERE model="HP Spectre 13";
 
 
 
-<!-- Release 3: Research on Your Own -->
+<!--- Release 3: Research on Your Own --->
+
 (1)
 JOINs are used to retrieve data from multiple tables, which can be filtered if an optional condition is provided after the 'ON' command for a query. The three major types of joins in SQLite are: INNER JOIN (aka JOIN), LEFT OUTER JOIN (aka LEFT JOIN), and CROSS (INNER) JOIN. Additionally, there is also NATURAL INNER JOIN and NATURAL LEFT OUTER JOIN. Other notable join types (which are NOT supported by SQLite3) include: RIGHT (OUTER) JOIN and FULL (OUTER) JOIN.
 
@@ -48,6 +49,24 @@ SQLite only supports LEFT OUTER JOIN, whereas execution of RIGHT JOIN and FULL J
 https://www.techonthenet.com/sqlite/joins.php contains some venn diagrams to illustrate the relationships of INNER JOIN, LEFT OUTER JOIN, and CROSS JOIN.
 
 (2)
+Included most recent data from computers and operating_systems tables for reference.
+
+SELECT * FROM computers;
+id|model|ram|new_status|operating_system_id
+1|Dell XPS 15|4|true|1
+2|Macbook Pro|16|false|2
+3|Lenovo Thinkpad T470|16|true|3
+4|HP Spectre 13|12|false|4
+
+SELECT * FROM operating_systems;
+id|name
+1|Windows
+2|Mac OS
+3|Linux
+5|Android
+
+<---------------------------------------------------------------------------------------------------------------->
+
 SELECT * FROM computers INNER JOIN operating_systems ON computers.operating_system_id = operating_systems.id;
 id|model|ram|new_status|operating_system_id|id|name
 1|Dell XPS 15|4|true|1|1|Windows
