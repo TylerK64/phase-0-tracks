@@ -26,12 +26,12 @@ id|model|ram|new_status|operating_system_id|id|name
 4|HP Spectre 13|8|false|1|1|Windows
 
 (4)
-SELECT computers.model, operating_systems.name FROM computers JOIN operating_systems ON computers.operating_system_id = operating_systems.id;
-model|name
-Dell XPS 15|Windows
-Macbook Pro|Mac OS
-Lenovo Thinkpad T470|Linux
-HP Spectre 13|Windows
+SELECT computers.model, ram, new_status, operating_systems.name FROM computers JOIN operating_systems ON computers.operating_system_id = operating_systems.id;
+model|ram|new_status|name
+Dell XPS 15|4|true|Windows
+Macbook Pro|16|false|Mac OS
+Lenovo Thinkpad T470|16|true|Linux
+HP Spectre 13|8|false|Windows
 
 (5)
 DELETE FROM computers WHERE model="HP Spectre 13";
@@ -40,6 +40,26 @@ DELETE FROM computers WHERE model="HP Spectre 13";
 
 <!-- Release 3: Research on Your Own -->
 (1)
-The main different types of joins are: INNER JOIN, LEFT JOIN, RIGHT JOIN, and FULL JOIN.
+The three major types of joins in SQL are: CROSS JOIN, INNER JOIN, and OUTER JOIN. Additionally, other notable join types include: LEFT JOIN, RIGHT JOIN, and FULL JOIN. SQLite only supports LEFT (OUTER) JOIN, whereas execution of RIGHT JOIN and FULL JOIN requires a more complete version of SQL, such as SQL standard.
+INNER JOIN is equivalent to the regular JOIN expression.
+
+Cross join 
 
 (2)
+SELECT * FROM computers INNER JOIN operating_systems ON computers.operating_system_id = operating_systems.id;
+id|model|ram|new_status|operating_system_id|id|name
+1|Dell XPS 15|4|true|1|1|Windows
+2|Macbook Pro|16|false|2|2|Mac OS
+3|Lenovo Thinkpad T470|16|true|3|3|Linux
+
+SELECT * FROM computers LEFT JOIN operating_systems ON computers.operating_system_id = operating_systems.id;
+id|model|ram|new_status|operating_system_id|id|name
+1|Dell XPS 15|4|true|1|1|Windows
+2|Macbook Pro|16|false|2|2|Mac OS
+3|Lenovo Thinkpad T470|16|true|3|3|Linux
+
+SELECT * FROM computers RIGHT JOIN operating_systems ON computers.operating_system_id = operating_systems.id;
+Error: RIGHT and FULL OUTER JOINs are not currently supported
+
+SELECT * FROM computers FULL JOIN operating_systems ON computers.operating_system_id = operating_systems.id;
+Error: RIGHT and FULL OUTER JOINs are not currently supported
