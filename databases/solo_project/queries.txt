@@ -40,10 +40,12 @@ DELETE FROM computers WHERE model="HP Spectre 13";
 
 <!-- Release 3: Research on Your Own -->
 (1)
-The three major types of joins in SQL are: CROSS JOIN, INNER JOIN, and OUTER JOIN. Additionally, other notable join types include: LEFT JOIN, RIGHT JOIN, and FULL JOIN. SQLite only supports LEFT (OUTER) JOIN, whereas execution of RIGHT JOIN and FULL JOIN requires a more complete version of SQL, such as SQL standard.
-INNER JOIN is equivalent to the regular JOIN expression.
+JOINs are used to retrieve data from multiple tables, which can be filtered if an optional condition is provided after the 'ON' command for a query. The three major types of joins in SQLite are: INNER JOIN (aka JOIN), LEFT OUTER JOIN (aka LEFT JOIN), and CROSS (INNER) JOIN. Additionally, there is also NATURAL INNER JOIN and NATURAL LEFT OUTER JOIN. Other notable join types (which are NOT supported by SQLite3) include: RIGHT (OUTER) JOIN and FULL (OUTER) JOIN.
 
-Cross join 
+INNER JOIN, or simply JOIN, is the most commonly used join type and returns all of the rows from multiple tables where the join condition is met. LEFT OUTER JOIN provides a more thorough result than INNER JOIN as it returns ALL of the rows from the left-hand table specified before the JOIN condition, and ONLY the rows from the second table in which the join condition is met. If the condition is not met, then NULL is returned instead. CROSS JOIN has the most thorough result as it returns the combination of every row from the first table with every row from the second table. CROSS JOIN also does not require a condition since all rows are matched regardless, unlike INNER JOIN or LEFT JOIN. Finally, the 'NATURAL' JOIN types (NATURAL INNER JOIN and NATURAL LEFT OUTER JOIN) are basically equivalent to their respective join type, omitting the 'NATURAL' description, except no 'ON' command or condition is necessary and instead the join is automatically performed by matching column names and row data from each table.
+
+SQLite only supports LEFT OUTER JOIN, whereas execution of RIGHT JOIN and FULL JOIN requires a more complete version of SQL, such as SQL standard.
+https://www.techonthenet.com/sqlite/joins.php contains some venn diagrams to illustrate the relationships of INNER JOIN, LEFT OUTER JOIN, and CROSS JOIN.
 
 (2)
 SELECT * FROM computers INNER JOIN operating_systems ON computers.operating_system_id = operating_systems.id;
@@ -52,14 +54,48 @@ id|model|ram|new_status|operating_system_id|id|name
 2|Macbook Pro|16|false|2|2|Mac OS
 3|Lenovo Thinkpad T470|16|true|3|3|Linux
 
-SELECT * FROM computers LEFT JOIN operating_systems ON computers.operating_system_id = operating_systems.id;
+SELECT * FROM computers LEFT OUTER JOIN operating_systems ON computers.operating_system_id = operating_systems.id;
 id|model|ram|new_status|operating_system_id|id|name
 1|Dell XPS 15|4|true|1|1|Windows
 2|Macbook Pro|16|false|2|2|Mac OS
 3|Lenovo Thinkpad T470|16|true|3|3|Linux
+4|HP Spectre 13|12|false|4||
 
-SELECT * FROM computers RIGHT JOIN operating_systems ON computers.operating_system_id = operating_systems.id;
-Error: RIGHT and FULL OUTER JOINs are not currently supported
+SELECT * FROM operating_systems LEFT JOIN computers ON computers.operating_system_id = operating_systems.id;
+id|name|id|model|ram|new_status|operating_system_id
+1|Windows|1|Dell XPS 15|4|true|1
+2|Mac OS|2|Macbook Pro|16|false|2
+3|Linux|3|Lenovo Thinkpad T470|16|true|3
+5|Android|||||
 
-SELECT * FROM computers FULL JOIN operating_systems ON computers.operating_system_id = operating_systems.id;
-Error: RIGHT and FULL OUTER JOINs are not currently supported
+SELECT * FROM computers CROSS JOIN operating_systems;
+id|model|ram|new_status|operating_system_id|id|name
+1|Dell XPS 15|4|true|1|1|Windows
+1|Dell XPS 15|4|true|1|2|Mac OS
+1|Dell XPS 15|4|true|1|3|Linux
+1|Dell XPS 15|4|true|1|5|Android
+2|Macbook Pro|16|false|2|1|Windows
+2|Macbook Pro|16|false|2|2|Mac OS
+2|Macbook Pro|16|false|2|3|Linux
+2|Macbook Pro|16|false|2|5|Android
+3|Lenovo Thinkpad T470|16|true|3|1|Windows
+3|Lenovo Thinkpad T470|16|true|3|2|Mac OS
+3|Lenovo Thinkpad T470|16|true|3|3|Linux
+3|Lenovo Thinkpad T470|16|true|3|5|Android
+4|HP Spectre 13|12|false|4|1|Windows
+4|HP Spectre 13|12|false|4|2|Mac OS
+4|HP Spectre 13|12|false|4|3|Linux
+4|HP Spectre 13|12|false|4|5|Android
+
+SELECT * FROM computers NATURAL JOIN operating_systems;
+id|model|ram|new_status|operating_system_id|name
+1|Dell XPS 15|4|true|1|Windows
+2|Macbook Pro|16|false|2|Mac OS
+3|Lenovo Thinkpad T470|16|true|3|Linux
+
+SELECT * FROM computers NATURAL LEFT JOIN operating_systems;
+id|model|ram|new_status|operating_system_id|name
+1|Dell XPS 15|4|true|1|Windows
+2|Macbook Pro|16|false|2|Mac OS
+3|Lenovo Thinkpad T470|16|true|3|Linux
+4|HP Spectre 13|12|false|4|
