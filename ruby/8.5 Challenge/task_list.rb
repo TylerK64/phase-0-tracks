@@ -57,5 +57,16 @@ db.execute(create_locations_table)
 
 tasks = db.execute("SELECT * FROM tasks")
 dates = db.execute("SELECT * FROM dates")
-puts tasks
-puts dates
+#puts tasks
+#puts dates
+
+a = db.execute("SELECT * FROM tasks WHERE location_id = 3")
+b = []
+b << "Hello world!"
+b << a
+b << "Bye world"
+p b
+if b[1][1].nil?
+  puts "it is nil"
+  puts b[1][1].class
+end
