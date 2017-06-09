@@ -66,7 +66,11 @@ b << "Hello world!"
 b << a
 b << "Bye world"
 p b
-if b[1][1].nil?
-  puts "it is nil"
+if b[1][1].nil? # && b[1][1].blank?
+  puts "it is nil & empty"
   puts b[1][1].class
+end
+
+if !nil
+  puts "nil is true"
 end
