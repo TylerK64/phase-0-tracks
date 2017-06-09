@@ -25,14 +25,12 @@ create_dates_table = <<-SQL
     date TEXT
   )
 SQL
-
 create_locations_table = <<-SQL
   CREATE TABLE IF NOT EXISTS locations (
     id INTEGER PRIMARY KEY,
     location VARCHAR(255)
   )
 SQL
-
 create_tasks_table = <<-SQL
   CREATE TABLE IF NOT EXISTS tasks (
     id INTEGER PRIMARY KEY,
