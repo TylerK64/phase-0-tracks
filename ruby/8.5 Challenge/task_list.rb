@@ -1,13 +1,13 @@
 require 'sqlite3'
 
-def existsCheck(db, table, task_new, location_id_new, due_date_new)
+def existsCheck(db, task_info)
 end
 
 def new_task(db, task_new, location, due_date)
   db.execute("INSERT INTO tasks (task, location_id, due_date_id) VALUES (?, ?, ?)", [task_new, location, due_date])
 end
 
-def populate_dates(db)
+def populate_dates(db) #only populate dates from current year
   dates_db = db.execute("SELECT date FROM dates")
   days_per_month = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
   days_per_month.length.times do |l|
@@ -20,6 +20,18 @@ def populate_dates(db)
         db.execute("INSERT INTO dates (date) VALUES (?)", date_string)
       end
     end
+  end
+end
+
+def new_task(db, task_new)
+  task_info = task_new.split(',')
+  if task_info.length != 3
+    puts "Sorry, not valid input. Try again."
+  else
+    task_info[1].strip!
+    task_info[2].strip!
+    #db.execute("INSERT INTO tasks (task) VALUES (?)", task_info[0])
+    p task_info
   end
 end
 
@@ -65,12 +77,20 @@ dates = db.execute("SELECT * FROM dates")
 
 ## Driver code logic ##
 loop do
-  puts "Please enter your task, the task location, and the due date (YYYY-MM-DD). Or type q to quit."
+  puts "Please enter 'new task', 'update task', or 'search' to add, edit, or find a task. Or type 'q' to quit."
   response = gets.strip
   if response == 'q'
     break
+  elsif response == "new task"
+    puts "Please enter the task, the location of the task, and the due date (separated by commas)."
+    task_new = gets.strip
+    new_task(db, task_new)
+  elsif response == "update task"
+    #code for updating task      
+  elsif response == "search"
+    #add code for searching the db later
+  else
+    puts "Sorry, not a valid input. Type 'q' to quit."
   end
-  task_new = response.split(',')
-  p task_new
-
+#task, the task location, and the due date (YYYY-MM-DD). Or type q to quit.
 end
