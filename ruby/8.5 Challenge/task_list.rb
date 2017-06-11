@@ -50,10 +50,8 @@ db = SQLite3::Database.new("task_list.db")
 #db.results_as_hash = true
 
 db.execute(create_tasks_table)
-#db.execute(create_dates_table)
+db.execute(create_dates_table)
 db.execute(create_locations_table)
-
-#db.execute("DELETE FROM dates")
 
 # new_task(db, "Walk the duck", 2, 50)
 
@@ -62,19 +60,17 @@ populate_dates(db)
 tasks = db.execute("SELECT * FROM tasks")
 dates = db.execute("SELECT * FROM dates")
 #p tasks
-p dates
+#p dates
 
-a = db.execute("SELECT * FROM tasks WHERE location_id = 3")
-b = []
-b << "Hello world!"
-b << a
-b << "Bye world"
-p b
-if b[1][1].nil? # && b[1][1].blank?
-  puts "it is nil & empty"
-  puts b[1][1].class
-end
 
-if !nil
-  puts "nil is true"
+## Driver code logic ##
+loop do
+  puts "Please enter your task, the task location, and the due date (YYYY-MM-DD). Or type q to quit."
+  response = gets.strip
+  if response == 'q'
+    break
+  end
+  task_new = response.split(',')
+  p task_new
+
 end
