@@ -8,13 +8,17 @@ def new_task(db, task_new, location, due_date)
 end
 
 def populate_dates(db)
+  dates_db = db.execute("SELECT date FROM dates")
   days_per_month = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
   days_per_month.length.times do |l|
     month = l + 1
     days = days_per_month[l]
     days.times do |i|
       date_string = "2017-#{month}-" + (i+1).to_s
-      db.execute("INSERT INTO dates (date) VALUES (?)", date_string)
+      date_new = db.execute("SELECT date FROM dates WHERE date IN (?)", date_string)
+      if !dates_db.include?(date_new.flatten)
+        db.execute("INSERT INTO dates (date) VALUES (?)", date_string)
+      end
     end
   end
 end
@@ -43,22 +47,22 @@ create_tasks_table = <<-SQL
 SQL
 
 db = SQLite3::Database.new("task_list.db")
-db.results_as_hash = true
+#db.results_as_hash = true
 
 db.execute(create_tasks_table)
-db.execute(create_dates_table)
+#db.execute(create_dates_table)
 db.execute(create_locations_table)
 
 #db.execute("DELETE FROM dates")
 
 # new_task(db, "Walk the duck", 2, 50)
 
-#populate_dates(db)
+populate_dates(db)
 
 tasks = db.execute("SELECT * FROM tasks")
 dates = db.execute("SELECT * FROM dates")
-#puts tasks
-#puts dates
+#p tasks
+p dates
 
 a = db.execute("SELECT * FROM tasks WHERE location_id = 3")
 b = []
