@@ -1,14 +1,14 @@
 require 'sqlite3'
 
-def db_check(db, task_info)
-  #db.execute("SELECT tasks.task, locations.location, dates.date FROM tasks JOIN  ")
+def db_check(db, task_info) #if exact task, location, & due date already exists in db return false. Otherwise add location, location_id, date_id to respective tables.
+  #db.execute("SELECT tasks.task, locations.location, dates.date FROM tasks JOIN locations ON tasks.location_id = locations.id JOIN dates ON tasks.due_date_id = dates.id")
 end
 
-def new_task(db, task_new, location, due_date)
-  db.execute("INSERT INTO tasks (task, location_id, due_date_id) VALUES (?, ?, ?)", [task_new, location, due_date])
-end
+# def new_task(db, task_new, location, due_date)
+#   db.execute("INSERT INTO tasks (task, location_id, due_date_id) VALUES (?, ?, ?)", [task_new, location, due_date])
+# end
 
-def populate_dates(db) #only populate dates from current year
+def populate_dates(db) #Populate dates only for current year. Unnecessary method, used for neater table organization.
   dates_db = db.execute("SELECT date FROM dates")
   days_per_month = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
   days_per_month.length.times do |l|
@@ -31,6 +31,7 @@ def new_task(db, task_new)    #Sets task, location_id, & due_date_id in tasks ta
   else
     task_info[1].strip!
     task_info[2].strip!
+    locations = db.execute("SELECT * FROM locations WHERE location IN (?)", task_info[1])
     #db_check(db, task_info)
     #db.execute("INSERT INTO tasks (task) VALUES (?)", task_info[0])
     p task_info
@@ -68,8 +69,6 @@ db.execute(create_dates_table)
 db.execute(create_locations_table)
 
 # new_task(db, "Walk the duck", 2, 50)
-
-populate_dates(db)
 
 tasks = db.execute("SELECT * FROM tasks")
 dates = db.execute("SELECT * FROM dates")
