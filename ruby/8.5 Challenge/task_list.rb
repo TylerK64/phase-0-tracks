@@ -122,5 +122,4 @@ loop do
   else
     puts "Sorry, not a valid input. Type 'q' to quit."
   end
-#task, the task location, and the due date (YYYY-MM-DD). Or type q to quit.
 end
