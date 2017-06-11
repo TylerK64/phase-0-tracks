@@ -1,7 +1,21 @@
 require 'sqlite3'
 
-def db_check(db, task_info) #if exact task, location, & due date already exists in db return false. Otherwise add location, location_id, date_id to respective tables.
+def db_check(db, task_info) #if exact task, location, & due date already exist in db return false. Otherwise add location, location_id, date_id to respective tables.
   #db.execute("SELECT tasks.task, locations.location, dates.date FROM tasks JOIN locations ON tasks.location_id = locations.id JOIN dates ON tasks.due_date_id = dates.id")
+  location_new = db.execute("SELECT * FROM locations WHERE location = (?)", task_info[1])
+  if location_new.empty?
+    db.execute("INSERT INTO locations (location) VALUES (?)", task_info[1])
+  end
+  date_new = db.execute("SELECT * FROM dates WHERE date = (?)", task_info[2])
+  if date_new.empty?
+    db.execute("INSERT INTO dates (date) VALUES (?)", task_info[2])
+  end
+  
+  location_id = db.execute("SELECT locations.id FROM locations WHERE location = (?)", task_info[1]).flatten
+  date_id = db.execute("SELECT dates.id FROM dates WHERE date = (?)", task_info[2]).flatten
+  p location_new
+  p location_id
+  p date_id
 end
 
 # def new_task(db, task_new, location, due_date)
@@ -31,7 +45,7 @@ def new_task(db, task_new)    #Sets task, location_id, & due_date_id in tasks ta
   else
     task_info[1].strip!
     task_info[2].strip!
-    locations = db.execute("SELECT * FROM locations WHERE location IN (?)", task_info[1])
+    db_check(db, task_info)
     #db_check(db, task_info)
     #db.execute("INSERT INTO tasks (task) VALUES (?)", task_info[0])
     p task_info
