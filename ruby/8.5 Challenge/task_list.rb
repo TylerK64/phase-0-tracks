@@ -1,7 +1,7 @@
 require 'sqlite3'
 
 #SELECT * FROM tasks JOIN locations ON tasks.location_id = locations.id JOIN dates ON tasks.due_date_id = dates.id;
-#delete previous line; for personal testing
+#delete previous line; used for personal testing
 
 def db_check(db, task_info) # If exact task, location, & due date already exist in db return false. Otherwise add location, location_id, date_id to respective tables.
   task_check = <<-SQL
@@ -11,7 +11,7 @@ def db_check(db, task_info) # If exact task, location, & due date already exist 
      WHERE tasks.task = (?) AND locations.location = (?) AND dates.date = (?)
   SQL
   task_new = db.execute(task_check, [task_info[0], task_info[1], task_info[2]])
-  
+
   if task_new.empty? # Check + add new location and/or date data if no exact task match; After add task, location_id and due_date_id to tasks
     location_new = db.execute("SELECT * FROM locations WHERE location = (?)", task_info[1])
     if location_new.empty?
@@ -46,18 +46,15 @@ def populate_dates(db) #Populate dates only for current year. Unnecessary method
   end
 end
 
-def new_task(db, task_new)    #Sets task, location_id, & due_date_id in tasks table. Sets location in locations table, date in dates table. Also preemtively checks for already existing entry.
+def task_split(db, task_new)
   task_info = task_new.split(',')
   if task_info.length != 3
     puts "Sorry, not valid input. Try again."
   else
     task_info[1].strip!
     task_info[2].strip!
-    task_check = db_check(db, task_info)
-    if task_check == false
-      puts "Entered task already exists. Try entering some different values."
-    end
   end
+  return task_info
 end
 
 def update_task(db, task_new)
@@ -113,7 +110,11 @@ loop do
   elsif response == "new task"
     puts "Please enter the task, the location of the task, and the due date (separated by commas)."
     task_new = gets.strip
-    new_task(db, task_new)
+    task_info = task_split(db, task_new)
+    task_check = db_check(db, task_info)
+    if task_check == false
+      puts "Entered task already exists. Try entering some different values."
+    end
   elsif response == "update task"
     #code for updating task      
   elsif response == "search"
