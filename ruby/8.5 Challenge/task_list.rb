@@ -1,6 +1,7 @@
 require 'sqlite3'
 
-def existsCheck(db, task_info)
+def db_check(db, task_info)
+  #db.execute("SELECT tasks.task, locations.location, dates.date FROM tasks JOIN  ")
 end
 
 def new_task(db, task_new, location, due_date)
@@ -23,13 +24,14 @@ def populate_dates(db) #only populate dates from current year
   end
 end
 
-def new_task(db, task_new)
+def new_task(db, task_new)    #Sets task, location_id, & due_date_id in tasks table. Sets location in locations table, date in dates table. Also preemtively checks for already existing entry.
   task_info = task_new.split(',')
   if task_info.length != 3
     puts "Sorry, not valid input. Try again."
   else
     task_info[1].strip!
     task_info[2].strip!
+    #db_check(db, task_info)
     #db.execute("INSERT INTO tasks (task) VALUES (?)", task_info[0])
     p task_info
   end
@@ -38,7 +40,7 @@ end
 create_dates_table = <<-SQL
   CREATE TABLE IF NOT EXISTS dates (
     id INTEGER PRIMARY KEY,
-    date TEXT
+    date DATE
   )
 SQL
 create_locations_table = <<-SQL
