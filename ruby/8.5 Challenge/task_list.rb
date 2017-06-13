@@ -27,7 +27,7 @@ def db_check(db, task_info) # If exact task, location, & due date already exist 
   elsif !task_new.empty?
     return false
   end
-  return true
+  # return true
 end
 
 def populate_dates(db) #Populate dates only for current year. Unnecessary method, used for neater table organization.
@@ -57,10 +57,26 @@ def task_split(db, task_new)
   return task_info
 end
 
-def update_task(db, task_new)
+def update_task(db, task_update)
+  tasks = db.execute("SELECT tasks.task FROM tasks WHERE tasks.task = (?)", task_update)
+  if tasks.empty?
+    puts "No such task exists, try entering a different task description."
+  elsif tasks.length > 1
+    tasks_update = db.execute("SELECT tasks.task, locations.location, dates.date FROM tasks JOIN locations ON tasks.location_id = locations.id JOIN dates ON tasks.due_date_id = dates.id WHERE tasks.task = (?)", task_update)
+    task_num = multiple_tasks(tasks_update)
+  end
 end
 
 def search(db, query)
+end
+
+def multiple_tasks(task_arr)
+  puts "There are multiple tasks which fit the entered description, which would you like to choose? Please enter the number of the corresponding output line:"
+  task_arr.each do |task|
+    puts "Task: #{task[0]} at Location: #{task[1]} with Due Date: #{task[2]}."
+  end
+  task_num = gets.chomp.to_i
+  return task_num
 end
 
 create_dates_table = <<-SQL
@@ -93,8 +109,6 @@ db.execute(create_tasks_table)
 db.execute(create_dates_table)
 db.execute(create_locations_table)
 
-# new_task(db, "Walk the duck", 2, 50)
-
 tasks = db.execute("SELECT * FROM tasks")
 dates = db.execute("SELECT * FROM dates")
 #p tasks
@@ -116,7 +130,9 @@ loop do
       puts "Entered task already exists. Try entering some different values."
     end
   elsif response == "update task"
-    #code for updating task      
+    puts "Please enter the name of the task you would like to edit."
+    task_update = gets.strip
+    update_task(db, task_update)
   elsif response == "search"
     #add code for searching the db later
   else
