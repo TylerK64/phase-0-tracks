@@ -57,13 +57,20 @@ def task_split(db, task_new)
   return task_info
 end
 
-def update_task(db, task_update)
-  tasks = db.execute("SELECT tasks.task FROM tasks WHERE tasks.task = (?)", task_update)
+def update_task(db, task_old, task_update)
+  tasks = db.execute("SELECT tasks.task, location_id, due_date_id FROM tasks WHERE tasks.task = (?)", task_old)
   if tasks.empty?
     puts "No such task exists, try entering a different task description."
+  elsif tasks.length == 1
+    tasks.flatten!
+    db.execute("UPDATE tasks SET task = (?) WHERE task = (?) AND location_id = (?) AND due_date_id = (?)", [task_update, task_old, tasks[1], tasks[2]] )
   elsif tasks.length > 1
-    tasks_update = db.execute("SELECT tasks.task, locations.location, dates.date FROM tasks JOIN locations ON tasks.location_id = locations.id JOIN dates ON tasks.due_date_id = dates.id WHERE tasks.task = (?)", task_update)
+    tasks_update = db.execute("SELECT tasks.task, locations.location, dates.date FROM tasks JOIN locations ON tasks.location_id = locations.id JOIN dates ON tasks.due_date_id = dates.id WHERE tasks.task = (?)", task_old)
     task_num = multiple_tasks(tasks_update)
+    p tasks
+    task_new = tasks[task_num]
+    p task_new
+    db.execute("UPDATE tasks SET task = (?) WHERE task = (?) AND location_id = (?) AND due_date_id = (?)", [task_update, task_old, task_new[1], task_new[2]] )
   end
 end
 
@@ -76,6 +83,7 @@ def multiple_tasks(task_arr)
     puts "Task: #{task[0]} at Location: #{task[1]} with Due Date: #{task[2]}."
   end
   task_num = gets.chomp.to_i
+  task_num -= 1
   return task_num
 end
 
@@ -131,8 +139,10 @@ loop do
     end
   elsif response == "update task"
     puts "Please enter the name of the task you would like to edit."
+    task_old = gets.strip
+    puts "Please enter the updated task information:"
     task_update = gets.strip
-    update_task(db, task_update)
+    update_task(db, task_old, task_update)
   elsif response == "search"
     #add code for searching the db later
   else
