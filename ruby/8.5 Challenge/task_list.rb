@@ -30,25 +30,14 @@ def db_check(db, task_info) # If exact task, location, & due date already exist 
   # return true
 end
 
-def task_split(db, task_new) # Splits input for new task into an array
-  task_info = task_new.split(',')
-  if task_info.length != 3
-    puts "Sorry, not valid input. Try again."
-  else
-    task_info[1].strip!
-    task_info[2].strip!
-  end
-  return task_info
-end
-
 def update_task(db, task_old, task_update)
-  tasks = db.execute("SELECT tasks.task, location_id, due_date_id FROM tasks WHERE tasks.task = (?)", task_old)
+  tasks = db.execute("SELECT location_id, due_date_id FROM tasks WHERE tasks.task = (?)", task_old)
   if tasks.empty?
     puts "No such task exists, try entering a different task description."
     # return false
   elsif tasks.length == 1
     tasks.flatten!
-    db.execute("UPDATE tasks SET task = (?) WHERE task = (?) AND location_id = (?) AND due_date_id = (?)", [task_update, task_old, tasks[1], tasks[2]] )
+    db.execute("UPDATE tasks SET task = (?) WHERE task = (?) AND location_id = (?) AND due_date_id = (?)", [task_update, task_old, tasks[0], tasks[1]] )
   elsif tasks.length > 1
     task_num = multiple_tasks(db, task_old)
     if task_num < 0 || task_num > tasks.length
@@ -56,12 +45,12 @@ def update_task(db, task_old, task_update)
       return false
     end
     task_new = tasks[task_num]
-    db.execute("UPDATE tasks SET task = (?) WHERE task = (?) AND location_id = (?) AND due_date_id = (?)", [task_update, task_old, task_new[1], task_new[2]] )
+    db.execute("UPDATE tasks SET task = (?) WHERE task = (?) AND location_id = (?) AND due_date_id = (?)", [task_update, task_old, task_new[0], task_new[1]] )
   end
 end
 
 def delete_task(db, task)
-  tasks = db.execute("SELECT tasks.id, tasks.task FROM tasks WHERE tasks.task = (?)", task)
+  tasks = db.execute("SELECT tasks.id FROM tasks WHERE tasks.task = (?)", task)
   if tasks.empty?
     puts "No such task exists, try entering a different task description."
   elsif tasks.length == 1
@@ -75,10 +64,49 @@ def delete_task(db, task)
     end
     task_delete = tasks[task_num]
     db.execute("DELETE FROM tasks WHERE id = (?)", task_delete[0]) 
-  end  
+  end
 end
 
 def search(db, query)
+  search_info = query.split(',')
+  if search_info.length != 2
+    puts "Sorry, the search query is invalid input. Please try again."
+    return false
+  else
+    search_info[1].strip!
+    if search_info[1] == "task"
+      tasks = db.execute("SELECT tasks.task, locations.location, dates.date FROM tasks JOIN locations ON tasks.location_id = locations.id JOIN dates ON tasks.due_date_id = dates.id WHERE tasks.task = (?)", search_info[0])
+      if tasks.empty?
+        puts "No results found for given task. Maybe try a different search term."
+      else
+        tasks.each do |task|
+          puts "Task: #{task[0]} at Location: #{task[1]} with Due Date: #{task[2]}."
+        end
+      end
+    elsif search_info[1] == "location"
+      locations = db.execute("SELECT tasks.task, locations.location, dates.date FROM tasks JOIN locations ON tasks.location_id = locations.id JOIN dates ON tasks.due_date_id = dates.id WHERE locations.location = (?)", search_info[0])
+      if locations.empty?
+        puts "No results found for given location. Maybe try a different search term."
+      else
+        locations.each do |location|
+          puts "Task: #{location[0]} at Location: #{location[1]} with Due Date: #{location[2]}."
+        end
+      end
+    elsif search_info[1] == "date"
+      dates = db.execute("SELECT tasks.task, locations.location, dates.date FROM tasks JOIN locations ON tasks.location_id = locations.id JOIN dates ON tasks.due_date_id = dates.id WHERE dates.date = (?)", search_info[0])
+      if dates.empty?
+        puts "No results found for given date. Maybe try a different search term."
+      else
+        dates.each do |date|
+          puts "Task: #{date[0]} at Location: #{date[1]} with Due Date: #{date[2]}."
+        end
+      end
+    else
+      puts "Inputted data type is invalid. Try 'task', 'location', or 'date'"
+      return false
+    end
+    # return true
+  end
 end
 
 def multiple_tasks(db, task_query)
@@ -89,6 +117,18 @@ def multiple_tasks(db, task_query)
   end
   task_num = gets.chomp.to_i
   return task_num - 1
+end
+
+def task_split(db, task_new) # Splits input for new task into an array
+  task_info = task_new.split(',')
+  if task_info.length != 3
+    puts "Sorry, the new task information is invalid input. Please try again."
+    return false
+  else
+    task_info[1].strip!
+    task_info[2].strip!
+  end
+  return task_info
 end
 
 def populate_dates(db) #Populate dates only for current year. Unnecessary method, used for neater table organization.
@@ -131,7 +171,6 @@ create_tasks_table = <<-SQL
 SQL
 
 db = SQLite3::Database.new("task_list.db")
-#db.results_as_hash = true
 
 db.execute(create_tasks_table)
 db.execute(create_dates_table)
@@ -140,12 +179,12 @@ db.execute(create_locations_table)
 
 ## Driver code logic ##
 loop do
-  puts "Please enter 'new task', 'update task', 'delete task', or 'search' to add, edit, or find a task. Or type 'q' to quit."
+  puts "Please enter 'new task', 'update task', 'delete task', or 'search' to add, edit, delete, or find a task. Or type 'q' to quit."
   response = gets.strip
   if response == 'q'
     break
   elsif response == "new task"
-    puts "Please enter the task, the location of the task, and the due date (separated by commas)."
+    puts "Please enter the task, the location of the task, and the due date (separated by commas):"
     task_new = gets.strip
     task_info = task_split(db, task_new)
     task_check = db_check(db, task_info)
@@ -153,17 +192,19 @@ loop do
       puts "Entered task already exists. Try entering some different values."
     end
   elsif response == "update task"
-    puts "Please enter the name of the task you would like to edit."
+    puts "Please enter the name of the task you would like to edit:"
     task_old = gets.strip
     puts "Please enter the updated task information:"
     task_update = gets.strip
     update_task(db, task_old, task_update)
   elsif response == "delete task"
-    puts "Please enter the name of the task you would like to delete."  
+    puts "Please enter the name of the task you would like to delete:"  
     task_delete = gets.strip
     delete_task(db, task_delete)
   elsif response == "search"
-    #add code for searching the db later
+    puts "Please enter your search query, along with the type of data provided (eg: task, location, date) and separated with a comma:"
+    search_query = gets.strip
+    search(db, search_query)
   else
     puts "Sorry, not a valid input. Type 'q' to quit."
   end
