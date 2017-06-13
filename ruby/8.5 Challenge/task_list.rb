@@ -1,8 +1,5 @@
 require 'sqlite3'
 
-#SELECT * FROM tasks JOIN locations ON tasks.location_id = locations.id JOIN dates ON tasks.due_date_id = dates.id;
-#delete previous line; used for personal testing
-
 def db_check(db, task_info) # If exact task, location, & due date already exist in db return false. Otherwise add location, location_id, date_id to respective tables.
   task_check = <<-SQL
      SELECT tasks.task, locations.location, dates.date 
@@ -153,12 +150,14 @@ create_dates_table = <<-SQL
     date DATE
   )
 SQL
+
 create_locations_table = <<-SQL
   CREATE TABLE IF NOT EXISTS locations (
     id INTEGER PRIMARY KEY,
     location VARCHAR(255)
   )
 SQL
+
 create_tasks_table = <<-SQL
   CREATE TABLE IF NOT EXISTS tasks (
     id INTEGER PRIMARY KEY,
