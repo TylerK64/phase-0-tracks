@@ -1,5 +1,6 @@
 # require gems
 require 'sinatra'
+require "sinatra/reloader" if development?
 require 'sqlite3'
 
 db = SQLite3::Database.new("students.db")
@@ -40,7 +41,22 @@ end
 # write a GET route that retrieves
 # a particular student
 
-get '/students/:id' do
-  student = db.execute("SELECT * FROM students WHERE id=?", [params[:id]])[0]
+get '/students/:id/' do
+  id = params[:id]
+  student = db.execute("SELECT * FROM students WHERE id=?", [id])[0]
   student.to_s
+end
+
+get '/contact' do
+  address = "123 Main Street"
+  "The address is located at #{address}."
+end
+
+get '/great_job/' do
+  person = params[:name]
+  if person
+    "Good job, #{person}!"
+  else
+    "Good job!"
+  end
 end
