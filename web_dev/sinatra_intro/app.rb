@@ -10,7 +10,16 @@ db.results_as_hash = true
 # add a query parameter
 # GET /
 get '/' do
-  "#{params[:name]} is #{params[:age]} years old."
+  campus = params[:campus]
+  students = db.execute("SELECT * FROM students WHERE campus IN (?)", campus)
+  response = ""
+  students.each do |student|
+    response << "ID: #{student['id']}<br>"
+    response << "Name: #{student['name']}<br>"
+    response << "Age: #{student['age']}<br>"
+    response << "Campus: #{student['campus']}<br><br>"
+  end
+  response
 end
 
 # write a GET route with
@@ -41,9 +50,10 @@ end
 # write a GET route that retrieves
 # a particular student
 
-get '/students/:id/' do
-  id = params[:id]
-  student = db.execute("SELECT * FROM students WHERE id=?", [id])[0]
+get '/students/:id' do
+  id = params[:id].to_i
+  student = db.execute("SELECT * FROM students WHERE id=?", id)[0]
+  p student
   student.to_s
 end
 
@@ -59,4 +69,9 @@ get '/great_job/' do
   else
     "Good job!"
   end
+end
+
+get '/numbers/:num1/:num2' do
+  total = params[:num1].to_i + params[:num2].to_i
+  total.to_s
 end
