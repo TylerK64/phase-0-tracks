@@ -37,11 +37,6 @@ li.right {
   background-color: #C0C0C0; 
 }
 
-
-#main {
-  
-}
-
 .outline {
   border: 1px solid black;
   outline-color: black;
@@ -70,6 +65,10 @@ figcaption {
   overflow: auto;
 }
 
+#color {
+  color: coral;
+}
+
 footer {
   min-width: 800px;
   padding: 30px;
@@ -88,3 +87,10 @@ footer {
   }
 }
 
+table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
