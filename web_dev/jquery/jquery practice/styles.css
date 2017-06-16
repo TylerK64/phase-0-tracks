@@ -1,0 +1,90 @@
+body {
+  
+}
+
+nav {
+  border: 1px solid #808080;
+  background-color: #f1f1f1;
+} 
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.topnav a {
+  float: left;
+  display: block;
+  color: red;
+  text-align: center;
+  padding: 8px 12px;
+  text-decoration: none;
+}
+
+a:visited {
+  color: green;
+}
+
+.topnav a:hover {
+  background-color: #555;
+  color: white;
+}
+
+li.right {
+  float: right;
+  background-color: #C0C0C0; 
+}
+
+
+#main {
+  
+}
+
+.outline {
+  border: 1px solid black;
+  outline-color: black;
+  outline-style: solid;
+  max-width: 250px;
+}
+
+.center {
+  text-align: center;
+  font-family: helvetica;
+}
+
+img {
+  display: block;
+  position: relative;
+  margin: auto;
+  width: 30%;
+}
+
+figcaption {
+  text-align: center;
+}
+
+#resize {
+  resize: both;
+  overflow: auto;
+}
+
+footer {
+  min-width: 800px;
+  padding: 30px;
+  text-align: center;
+  font-weight: bold;
+  background-image: url("drumsticks.png");
+  background-size: 100px 80px;
+  background-color: #DCDCDC;
+}
+
+@media screen and (max-width: 600px){
+  footer {
+    font-size: small;
+    font-weight: bold;
+    background-image: url("");
+  }
+}
+
