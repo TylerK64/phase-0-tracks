@@ -1,7 +1,6 @@
 New Terminology: 
 CDN - Content Delivery Network
 
-
 New topics:
 Attributes (square) vs. Properties (rectangle; newer) - .attr() covers greater range
 Callbacks and Functions !!!
@@ -16,7 +15,8 @@ Notes:
 -Alt method for new empty element: $( '<p>' );
 -Basic syntax: $(selector).action()
 -$( 'ul li' );   // select list items that are in unordered lists
-
+JQ: e.target.nodeName;
+JS: event.target.tagName;
 
 New languages, libraries, frameworks, APIs, etc:
 AJAX - Asyncronous JavaScript And XML. Request/recieve data from a server without reloading a page. Send data to server in background.
