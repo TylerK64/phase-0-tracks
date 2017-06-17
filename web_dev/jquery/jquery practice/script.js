@@ -1,11 +1,3 @@
-var $topnav = $('.topnav');
-
-$(function() {
-  var $main = $('#main');
-  //$main.addClass('outline');
-});
-
-
 $(function() {
   var $h4Text = $('h4').text();
   
@@ -36,9 +28,6 @@ $(function() {
   $('ol li').get(4).firstChild.nextSibling.nodeValue = ' - New definition for types of drums for item 5.';
   $('ol li:last b').remove();
   
-//  $('tr:odd').on('click', function() {
-//    $(this).css('visibility', 'collapse');
-//  });
   $('tr:odd').on('click', function() {
     $(this).slideUp();
   })
