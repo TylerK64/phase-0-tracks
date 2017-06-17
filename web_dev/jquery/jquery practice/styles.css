@@ -41,7 +41,7 @@ li.right {
   border: 1px solid black;
   outline-color: black;
   outline-style: solid;
-  max-width: 250px;
+  width: 350px;
 }
 
 .center {

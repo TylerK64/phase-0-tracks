@@ -27,10 +27,13 @@ XML
 
 To Research:
 https://api.jquery.com/  - See left sidebar for various topics (attributes, CSS, events, manipulation etc)
+http://api.jquery.com/category/events/event-handler-attachment/   !!!!!!!
 https://api.jquery.com/category/ajax/shorthand-methods/
 http://jqfundamentals.com/chapter/javascript-basics
+https://www.w3schools.com/jquery/jquery_ref_effects.asp
 Javascipt vs JQuery overview <- search phrase
 jQuery - Quick Guide <- search phrase
+[JS DOM element object methods] - https://www.w3schools.com/jsref/dom_obj_all.asp
 
 
 -try messing around with input types: https://www.w3schools.com/tags/att_input_type.asp
