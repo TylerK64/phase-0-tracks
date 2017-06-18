@@ -1,5 +1,6 @@
 # require gems
 require 'sinatra'
+require "sinatra/reloader" if development?
 require 'sqlite3'
 
 set :public_folder, File.dirname(__FILE__) + '/static'
@@ -25,3 +26,7 @@ post '/students' do
 end
 
 # add static resources
+
+get '/teachers/new' do
+  erb :new_teacher
+end
