@@ -11,6 +11,7 @@ db.results_as_hash = true
 # show students on the home page
 get '/' do
   @students = db.execute("SELECT * FROM students")
+  @teachers = db.execute("SELECT * FROM teachers")
   erb :home
 end
 
@@ -29,4 +30,18 @@ end
 
 get '/teachers/new' do
   erb :new_teacher
+end
+
+post '/teachers' do
+  teachers_table = <<-SQL
+  CREATE TABLE IF NOT EXISTS teachers(
+  id INTEGER PRIMARY KEY,
+  name VARCHAR(255),
+  campus VARCHAR(255),
+  age int
+  )
+  SQL
+  db.execute(teachers_table)
+  db.execute("INSERT INTO teachers (name, campus, age) VALUES (?,?,?)", [params['name'], params['campus'], params['age'].to_i])
+  redirect '/'
 end
