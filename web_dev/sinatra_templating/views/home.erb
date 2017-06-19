@@ -11,6 +11,9 @@
     <% @students.each do |student| %>
       <li><%= student['name'] %>, <%= student['age'] %></li>
     <% end %>
+    <% @teachers.each do |teacher| %>
+      <li><%= teacher['name'] %>, <%= teacher['campus'] %></li>
+    <% end %>
   </ul>
 </body>
 </html>
